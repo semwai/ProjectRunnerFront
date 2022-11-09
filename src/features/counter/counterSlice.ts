@@ -8,7 +8,7 @@ export interface CounterState {
 }
 
 const initialState: CounterState = {
-  value: 0,
+  value: localStorage['store'] ? JSON.parse(localStorage['store']).counter.value: 0,
   status: 'idle',
 };
 

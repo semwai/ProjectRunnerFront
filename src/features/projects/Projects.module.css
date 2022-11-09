@@ -1,0 +1,13 @@
+
+.project {
+    width: 400px;
+    background-color: #1e1d1d;
+    padding: 10px;
+    color: white;
+}
+
+.spin {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+}
