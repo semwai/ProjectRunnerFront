@@ -13,7 +13,7 @@ function App() {
                     <Route path="/" element={<IndexPage/>}></Route>
                     <Route path="/projects" element={<ProjectsPage/>}></Route>
                     <Route path="/login" element={<LoginPage/>}></Route>
-                    <Route path="/project/:id" element={<Project/>}></Route>
+                    <Route path="/project/:id" element={<ProjectPage/>}></Route>
                 </Routes>
             </div>
         </Router>
@@ -34,6 +34,15 @@ function ProjectsPage() {
         <div className="App">
             <Header/>
             <Projects/>
+        </div>
+    );
+}
+
+function ProjectPage() {
+    return (
+        <div className="App">
+            <Header/>
+            <Project/>
         </div>
     );
 }

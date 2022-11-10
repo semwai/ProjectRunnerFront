@@ -1,16 +1,29 @@
 
 .container {
-    display: flex;
-    flex-direction: row;
+
     align-items: center;
-    justify-content: space-between;
+
     text-align: center;
     background-color: #1e1d1d;
     padding: 10px;
+
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    color: #444;
 }
 
 .link {
     text-decoration: none;
     color: #d4d4d4;
     font-size: xx-large;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
 }
