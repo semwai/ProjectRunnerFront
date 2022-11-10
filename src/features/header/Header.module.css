@@ -1,16 +1,12 @@
 
 .container {
-
     align-items: center;
-
     text-align: center;
     background-color: #1e1d1d;
     padding: 10px;
-
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 1fr 1fr 1fr;
-
     color: #444;
 }
 
@@ -26,4 +22,16 @@
 
 .right {
     text-align: right;
+}
+
+@media screen and (max-width: 500px) {
+    .container {
+        align-items: normal;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+    }
+    .link {
+        text-align: left;
+        font-size: large;
+    }
 }

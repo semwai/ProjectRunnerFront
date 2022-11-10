@@ -27,8 +27,8 @@ export function Project() {
     } else {
          return (
              <div className={styles.container}>
-                 <p>{project.value.name}</p>
-                 <Input/>
+                 <div><h1>{project.value.name}</h1></div>
+                 <div className={styles.containerItem}><Input/></div>
              </div>)
     }
 

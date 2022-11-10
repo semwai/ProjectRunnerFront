@@ -3,20 +3,21 @@ import React from "react";
 import {useAppSelector} from "../../app/hooks";
 import {selectProject} from "./projectSlice";
 import {Spinner} from "react-bootstrap";
+import styles from './Project.module.css'
 
 export function Input() {
     const project = useAppSelector(selectProject)
     const options = {
-        selectOnLineNumbers: true
+        selectOnLineNumbers: true,
+        automaticLayout: true
     };
 
     return <Editor
-        width="800px"
-        height="600px"
+        height="500px"
         language={project.value?.lang}
         theme="vs-dark"
         value={project.value?.example}
         options={options}
-        loading={<Spinner/>}
+        loading={<Spinner className={styles.center}/>}
     />
 }
