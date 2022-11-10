@@ -33,6 +33,7 @@ export const projectSlice = createSlice({
         builder
             .addCase(getProject.pending, (state) => {
                 state.status = 'loading';
+                state.value = null;
             })
             .addCase(getProject.fulfilled, (state, action) => {
                 state.status = 'idle';
