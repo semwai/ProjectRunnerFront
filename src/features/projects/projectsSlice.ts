@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-import {fetchProjects} from "./testAPi";
+import {fetchProjects} from "./projectAPI";
 
 export interface Project {
     id: number, lang: string, name: string, description: string, example: string

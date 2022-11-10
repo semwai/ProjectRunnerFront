@@ -1,6 +1,6 @@
 
 // A mock function to mimic making an async request for data
-import {Project} from "./testSlice";
+import {Project} from "./projectsSlice";
 
 interface FetchProject {
     data: Project[]
