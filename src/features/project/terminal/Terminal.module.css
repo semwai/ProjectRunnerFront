@@ -1,0 +1,21 @@
+.terminalDemo {
+    margin-top: 20px;
+}
+
+.terminalDemo p {
+    margin-top: 0;
+}
+.terminalDemo div  {
+    background-color: #1e1d1d;
+    color: #d4d4d4;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 13px;
+    border: none;
+    padding: 5px;
+}
+
+.terminalDemo div div {
+
+    padding: 0;
+    margin: 0;
+}

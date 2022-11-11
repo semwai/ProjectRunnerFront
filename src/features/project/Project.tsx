@@ -7,6 +7,7 @@ import {store} from "../../app/store";
 import {getProject} from "./projectSlice";
 import {Input} from "./Input";
 import {Spinner} from "react-bootstrap";
+import {TerminalDemo} from "./terminal/TerminalDemo";
 
 
 export function Project() {
@@ -29,6 +30,7 @@ export function Project() {
              <div className={styles.container}>
                  <div><h1>{project.value.name}</h1></div>
                  <div className={styles.containerItem}><Input/></div>
+                 <div className={styles.containerItem}><TerminalDemo/></div>
              </div>)
     }
 
