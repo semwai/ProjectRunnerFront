@@ -2,7 +2,7 @@ import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import projectsReducer from '../features/projects/projectsSlice';
 import projectReducer from '../features/project/projectSlice';
-import terminalReducer from '../features/terminal/terminalSlice';
+import terminalReducer, {clear, puts} from '../features/terminal/terminalSlice';
 
 let ws: WebSocket | null = null
 
@@ -25,6 +25,7 @@ store.subscribe(() => {
         if (ws == null) {
             return
         }
+        store.dispatch(clear())
         ws.onmessage = (event) => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
             //onst dispatch = useAppDispatch();
@@ -37,14 +38,13 @@ store.subscribe(() => {
                 console.log('!wait')
             }
             if (msg.stdout) {
-                console.log('stdout', msg.stdout)
-                //dispatch(puts({type:'stdout', text:msg.stdout}))
+                store.dispatch(puts({type:'stdout', text:msg.stdout}))
             }
             if (msg.stderr) {
-                console.log('stderr', msg.stderr)
+                store.dispatch(puts({type:'stderr', text:msg.stderr}))
             }
             if (msg.ExitCode) {
-                console.log('ExitCode', msg.ExitCode)
+                store.dispatch(puts({type:'ExitCode', text:msg.ExitCode}))
             }
         }
     }

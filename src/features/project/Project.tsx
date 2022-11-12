@@ -15,6 +15,7 @@ function Page() {
 
     const send = () => {
         dispatch(puts({text: input + '\n', type: 'stdin'}))
+        project.ws?.send(JSON.stringify({type: 'stdio', data: input}))
         setInput('')
     }
 
