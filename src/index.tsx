@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import {getProjects} from "./features/projects/projectsSlice";
 
+
+
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
