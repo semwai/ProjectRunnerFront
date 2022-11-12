@@ -5,16 +5,23 @@ import {selectTerminal, TerminalString} from "./terminalSlice";
 
 const TerminalStringComponent = (str: TerminalString) => {
 
-    const text = <span dangerouslySetInnerHTML={{__html: str.text.replace(/\n/g, "<br/>")}}/>
+    let text = str.text.split(/\n/g)
+    let content
+    if (text.length > 1) {
+        text.pop()
+        content = text.map(s => <>{s}<br/></>)
+    } else {
+        content = text
+    }
     switch (str.type) {
         case "stdin":
-            return <span className={styles.stdin}>{text}</span>
+            return <span className={styles.stdin}>{content}</span>
         case "stderr":
-            return <span className={styles.stderr}>{text}</span>
+            return <span className={styles.stderr}>{content}</span>
         case "stdout":
-            return <span className={styles.stdout}>{text}</span>
+            return <span className={styles.stdout}>{content}</span>
         case "ExitCode":
-            return <span className={styles.ExitCode}>{text}</span>
+            return <span className={styles.ExitCode}>{content}</span>
         default:
             return <span></span>
     }
