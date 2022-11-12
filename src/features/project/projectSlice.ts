@@ -9,11 +9,15 @@ export interface Project {
 
 export interface ProjectStorage {
     value: Project | null
+    ws: WebSocket | null
+    start: boolean // отправлен ли проект на сервер
     status: string
 }
 
 const initialState: ProjectStorage = {
     value: null,
+    ws: null,
+    start: false,
     status: 'idle'
 };
 
@@ -23,12 +27,16 @@ export const projectSlice = createSlice({
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-        addProject: (state, action: PayloadAction<Project>) => {
-            state.value = action.payload
-        },
         writeCode: (state, action: PayloadAction<string>) => {
             if (state.value !== null)
                 state.value.example = action.payload
+        },
+        start: (state) => {
+            state.start = true
+            state.ws?.send(JSON.stringify({
+                type: 'program',
+                data: state.value?.example
+            }))
         }
     },
     // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -38,10 +46,14 @@ export const projectSlice = createSlice({
             .addCase(getProject.pending, (state) => {
                 state.status = 'loading';
                 state.value = null;
+                state.ws = null
+                state.start = false
             })
             .addCase(getProject.fulfilled, (state, action) => {
                 state.status = 'idle';
                 state.value = action.payload;
+                state.ws = new WebSocket(`ws://${window.location.hostname + ':8000'}/ws?project_id=${action.payload.id}`)
+                //console.log(state.ws)
             })
             .addCase(getProject.rejected, (state) => {
                 state.status = 'failed';
@@ -57,7 +69,7 @@ export const getProject = createAsyncThunk(
     }
 );
 
-export const { addProject, writeCode } = projectSlice.actions;
+export const { writeCode, start } = projectSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

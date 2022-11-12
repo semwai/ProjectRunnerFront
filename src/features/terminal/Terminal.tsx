@@ -9,7 +9,7 @@ const TerminalStringComponent = (str: TerminalString) => {
     let content
     if (text.length > 1) {
         text.pop()
-        content = text.map(s => <>{s}<br/></>)
+        content = text.map((s, i) => <div key={i}>{s}</div>)
     } else {
         content = text
     }

@@ -12,10 +12,10 @@ export interface TerminalData {
 
 const initialState: TerminalData = {
     value: [
-        {text: 'hello world, input value:', type: 'stdout'},
+        /*{text: 'hello world, input value:', type: 'stdout'},
         {text: '123321\n', type: 'stdin'},
         {text: 'errorerrorerrorerrorerrorerror\n', type: 'stderr'},
-        {text: 'Process finished with exit code 0\n', type: 'ExitCode'}
+        {text: 'Process finished with exit code 0\n', type: 'ExitCode'}*/
     ],
 };
 

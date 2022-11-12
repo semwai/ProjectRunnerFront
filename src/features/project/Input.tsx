@@ -20,7 +20,6 @@ export function Input() {
         value={project.value?.example}
         options={options}
         onChange={(s) => {
-            console.log(s)
             dispatch(writeCode(s || ''))}}
         loading={<Spinner className={styles.center}/>}
     />
