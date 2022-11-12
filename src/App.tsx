@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Projects} from "./features/projects/Projects";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes, useParams} from "react-router-dom";
 import {Project} from "./features/project/Project";
 import {Header} from "./features/header/Header";
+import {useAppDispatch} from "./app/hooks";
+import {getProject} from "./features/project/projectSlice";
 
 function App() {
     return (
@@ -39,6 +41,16 @@ function ProjectsPage() {
 }
 
 function ProjectPage() {
+    const {id} = useParams()
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        // fetch data
+        if (typeof id === "string") {
+            dispatch(getProject(parseInt(id)))
+        }
+    },[dispatch, id]);
+
     return (
         <div className="App">
             <Header/>

@@ -22,9 +22,22 @@ function ProjectComponent(props: Project) {
 export function Projects() {
     const projects = useAppSelector(selectProjects);
 
-    return <div className={styles.container}>{projects.status === 'loading' ? <Spinner className={styles.spin}/> : ''}
-        {projects.value.map(p =>
-            <ProjectComponent {...p} key={p.id}/>
-        )}
+    let content
+
+    switch (projects.status) {
+        case 'loading':
+            content = <Spinner className={styles.spin}/>
+            break
+        case 'idle':
+            content = projects.value.map(p =>
+                <ProjectComponent {...p} key={p.id}/>
+            )
+            break
+        case 'failed':
+            content = 'server error'
+            break
+    }
+    return <div className={styles.container}>
+        {content}
     </div>
 }

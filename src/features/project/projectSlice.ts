@@ -25,6 +25,10 @@ export const projectSlice = createSlice({
     reducers: {
         addProject: (state, action: PayloadAction<Project>) => {
             state.value = action.payload
+        },
+        writeCode: (state, action: PayloadAction<string>) => {
+            if (state.value !== null)
+                state.value.example = action.payload
         }
     },
     // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -53,7 +57,7 @@ export const getProject = createAsyncThunk(
     }
 );
 
-export const { addProject } = projectSlice.actions;
+export const { addProject, writeCode } = projectSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
