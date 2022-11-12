@@ -5,6 +5,7 @@
 }
 
 .containerItem {
+    margin-top: 20px;
     max-width: 600px;
     width: 100%;
 }
@@ -13,4 +14,28 @@
     position: fixed;
     left: 50%;
     top: 50%;
+}
+
+.input{
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 13px;
+    border: none;
+    width: 100%;
+}
+
+.input:focus{
+    border: none;
+    outline: none;
+}
+
+.send {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:disabled {
+    color: #444444;
 }

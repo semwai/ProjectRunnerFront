@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import projectsReducer from '../features/projects/projectsSlice';
 import projectReducer from '../features/project/projectSlice';
+import terminalReducer from '../features/terminal/terminalSlice';
 
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     counter: counterReducer,
     projects: projectsReducer,
     project: projectReducer,
+    terminal: terminalReducer
   },
 });
 

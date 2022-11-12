@@ -1,0 +1,25 @@
+.terminal {
+    background-color: #1e1d1d;
+    color: #d4d4d4;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 13px;
+    padding: 5px;
+    word-break: break-all;
+    height: 250px;
+}
+
+.stdout {
+
+}
+
+.stderr {
+    color: red;
+}
+
+.stdin {
+    color: green;
+}
+
+.ExitCode {
+    color: white;
+}
