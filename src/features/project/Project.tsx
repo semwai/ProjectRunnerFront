@@ -27,7 +27,7 @@ function Page() {
         dispatch(restart())
     }
 
-    const started = project.wait?<div><Spinner/></div>:(<>
+    const started = project.wait?<div className={styles.wait}><Spinner/></div>:(<>
         <div className={styles.containerItem}>
             <div className={styles.buttons}>
                 <div className={styles.send}>
