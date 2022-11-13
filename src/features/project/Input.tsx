@@ -9,7 +9,8 @@ export function Input() {
     const project = useAppSelector(selectProject)
     const options = {
         selectOnLineNumbers: true,
-        automaticLayout: true
+        automaticLayout: true,
+        // readOnly: project.start // Блокирую изменение кода когда проект запущен
     };
     const dispatch = useAppDispatch();
 
