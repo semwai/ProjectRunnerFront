@@ -37,6 +37,13 @@ export const projectSlice = createSlice({
                 type: 'program',
                 data: state.value?.example
             }))
+        },
+        restart: (state) => {
+            if (state.value == null || state.ws == null)
+                return
+            state.start = false
+            state.ws.close()
+            state.ws = new WebSocket(`ws://${window.location.hostname + ':8000'}/ws?project_id=${state.value.id}`)
         }
     },
     // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -46,6 +53,9 @@ export const projectSlice = createSlice({
             .addCase(getProject.pending, (state) => {
                 state.status = 'loading';
                 state.value = null;
+                if (state.ws) {
+                    state.ws.close()
+                }
                 state.ws = null
                 state.start = false
             })
@@ -69,7 +79,7 @@ export const getProject = createAsyncThunk(
     }
 );
 
-export const { writeCode, start } = projectSlice.actions;
+export const { writeCode, start, restart } = projectSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

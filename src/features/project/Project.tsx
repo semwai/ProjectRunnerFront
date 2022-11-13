@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styles from './Project.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {selectProject, start} from "./projectSlice";
+import {restart, selectProject, start} from "./projectSlice";
 import {Input} from "./Input";
 import {Spinner} from "react-bootstrap";
 import {Terminal} from "../terminal/Terminal";
@@ -23,19 +23,27 @@ function Page() {
          dispatch(start())
     }
 
+    const restartProject = () => {
+        dispatch(restart())
+    }
+
     const started = (<><div className={styles.containerItem}>
-        <div className={styles.areaBox}>
-            <textarea className={styles.input} placeholder='send to process:' value={input} onChange={e => setInput(e.target.value)}/>
-        </div>
-        <div className={styles.container}>
+        <div className={styles.buttons}>
             <div className={styles.send}>
                 <button onClick={send} className={styles.btn} disabled={!input.length}>send</button>
             </div>
+            <div>
+                <button onClick={restartProject} className={styles.btn}>restart</button>
+            </div>
         </div>
+        <div className={styles.areaBox}>
+            <textarea className={styles.input} placeholder='send to process:' value={input} onChange={e => setInput(e.target.value)}/>
+        </div>
+
     </div>
     <div className={styles.containerItem}><Terminal/></div></>)
 
-    const not_started = (<div className={styles.containerItem}>
+    const not_started = (<div className={[styles.container, styles.containerItem].join(' ')}>
         <button onClick={startProject}>start project</button>
     </div>)
 

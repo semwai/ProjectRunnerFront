@@ -30,7 +30,6 @@ store.subscribe(() => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
             //onst dispatch = useAppDispatch();
             let msg = JSON.parse(event.data)
-            console.log(msg)
             if (msg.wait === true) {
                 console.log('wait')
             }
