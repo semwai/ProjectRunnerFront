@@ -3,7 +3,7 @@ import styles from './Project.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {restart, selectProject, start} from "./projectSlice";
 import {Input} from "./Input";
-import {Spinner} from "react-bootstrap";
+import {Spinner} from "../spinner/Spinner";
 import {Terminal} from "../terminal/Terminal";
 import {puts} from "../terminal/terminalSlice";
 
@@ -62,10 +62,10 @@ export function Project() {
     let content
     switch (project.status) {
         case 'idle':
-            content = project.value ? <Page/> : <Spinner className={styles.center}/>
+            content = project.value ? <Page/> : <div className={styles.center}><Spinner/></div>
             break
         case 'loading':
-            content = <Spinner className={styles.center}/>
+            content = <div className={styles.center}><Spinner/></div>
             break
         case 'failed':
             content = 'server error'
