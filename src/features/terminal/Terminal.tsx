@@ -38,11 +38,9 @@ export function Terminal() {
         }
     }, [terminal.value])
 
-    return (<>
-        <pre className={[styles.terminal, styles.container].join(' ')} ref={ref}>
+    return (<pre className={[styles.terminal, styles.container].join(' ')} ref={ref}>
             {terminal.value.map((str, i) =>
                 <TerminalStringComponent key={i} text={str.text} type={str.type}/>
             )}
-        </pre>
-    </>)
+        </pre>)
 }

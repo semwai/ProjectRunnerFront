@@ -11,6 +11,7 @@ export interface ProjectStorage {
     value: Project | null
     ws: WebSocket | null
     start: boolean // отправлен ли проект на сервер
+    wait: boolean // ждем пока сервер установит и запустит проект
     status: string
 }
 
@@ -18,6 +19,7 @@ const initialState: ProjectStorage = {
     value: null,
     ws: null,
     start: false,
+    wait: true,
     status: 'idle'
 };
 
@@ -37,6 +39,9 @@ export const projectSlice = createSlice({
                 type: 'program',
                 data: state.value?.example
             }))
+        },
+        setWait: (state, action: PayloadAction<boolean>) => {
+            state.wait = action.payload
         },
         restart: (state) => {
             if (state.value == null || state.ws == null)
@@ -79,7 +84,7 @@ export const getProject = createAsyncThunk(
     }
 );
 
-export const { writeCode, start, restart } = projectSlice.actions;
+export const { writeCode, start, restart, setWait } = projectSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

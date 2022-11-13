@@ -27,21 +27,22 @@ function Page() {
         dispatch(restart())
     }
 
-    const started = (<><div className={styles.containerItem}>
-        <div className={styles.buttons}>
-            <div className={styles.send}>
-                <button onClick={send} className={styles.btn} disabled={!input.length}>send</button>
+    const started = project.wait?<div><Spinner/></div>:(<>
+        <div className={styles.containerItem}>
+            <div className={styles.buttons}>
+                <div className={styles.send}>
+                    <button onClick={send} className={styles.btn} disabled={!input.length}>send</button>
+                </div>
+                <div>
+                    <button onClick={restartProject} className={styles.btn}>restart</button>
+                </div>
             </div>
-            <div>
-                <button onClick={restartProject} className={styles.btn}>restart</button>
+            <div className={styles.areaBox}>
+                <textarea className={styles.input} placeholder='send to process:' value={input} onChange={e => setInput(e.target.value)}/>
             </div>
         </div>
-        <div className={styles.areaBox}>
-            <textarea className={styles.input} placeholder='send to process:' value={input} onChange={e => setInput(e.target.value)}/>
-        </div>
-
-    </div>
-    <div className={styles.containerItem}><Terminal/></div></>)
+        <div className={styles.containerItem}><Terminal/></div>
+    </>)
 
     const not_started = (<div className={[styles.container, styles.containerItem].join(' ')}>
         <button onClick={startProject}>start project</button>
