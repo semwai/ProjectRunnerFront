@@ -1,7 +1,7 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import projectsReducer from '../features/projects/projectsSlice';
-import projectReducer from '../features/project/projectSlice';
+import projectReducer, {setWait} from '../features/project/projectSlice';
 import terminalReducer, {clear, puts} from '../features/terminal/terminalSlice';
 
 let ws: WebSocket | null = null
@@ -25,17 +25,17 @@ store.subscribe(() => {
         if (ws == null) {
             return
         }
-        store.dispatch(clear())
+        if (store.getState().terminal.value.length > 0)
+            store.dispatch(clear())
         ws.onmessage = (event) => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
             //onst dispatch = useAppDispatch();
             let msg = JSON.parse(event.data)
-            console.log(msg)
             if (msg.wait === true) {
-                console.log('wait')
+                store.dispatch(setWait(true))
             }
             if (msg.wait === false) {
-                console.log('!wait')
+                store.dispatch(setWait(false))
             }
             if (msg.stdout) {
                 store.dispatch(puts({type:'stdout', text:msg.stdout}))

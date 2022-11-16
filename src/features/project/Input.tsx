@@ -2,14 +2,15 @@ import Editor from "@monaco-editor/react";
 import React from "react";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {selectProject, writeCode} from "./projectSlice";
-import {Spinner} from "react-bootstrap";
+import {Spinner} from "../spinner/Spinner";
 import styles from './Project.module.css'
 
 export function Input() {
     const project = useAppSelector(selectProject)
     const options = {
         selectOnLineNumbers: true,
-        automaticLayout: true
+        automaticLayout: true,
+        // readOnly: project.start // Блокирую изменение кода когда проект запущен
     };
     const dispatch = useAppDispatch();
 
@@ -21,6 +22,6 @@ export function Input() {
         options={options}
         onChange={(s) => {
             dispatch(writeCode(s || ''))}}
-        loading={<Spinner className={styles.center}/>}
+        loading={<div className={styles.center}><Spinner/></div>}
     />
 }

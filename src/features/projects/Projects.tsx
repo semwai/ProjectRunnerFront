@@ -1,10 +1,9 @@
 import React from 'react';
 import {useAppSelector} from '../../app/hooks';
 import {Project, selectProjects,} from './projectsSlice';
-import {Spinner} from "react-bootstrap";
 import styles from './Projects.module.css'
 import {Link} from "react-router-dom";
-
+import {Spinner} from "../spinner/Spinner";
 
 function ProjectComponent(props: Project) {
     //const ex = props.example.length > 25 ? props.example.substring(0, 25) + '...' : props.example
@@ -26,7 +25,7 @@ export function Projects() {
 
     switch (projects.status) {
         case 'loading':
-            content = <Spinner className={styles.spin}/>
+            content = <div className={styles.spin}><Spinner/></div>
             break
         case 'idle':
             content = projects.value.map(p =>

@@ -7,6 +7,6 @@ interface FetchProject {
 }
 
 export async function fetchProjects(): Promise<FetchProject> {
-    let res = await fetch('/api/projects')
+    let res = await fetch(`http://${window.location.hostname}:8000/api/projects`)
     return res.json()
 }
