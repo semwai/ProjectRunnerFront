@@ -25,7 +25,8 @@ store.subscribe(() => {
         if (ws == null) {
             return
         }
-        store.dispatch(clear())
+        if (store.getState().terminal.value.length > 0)
+            store.dispatch(clear())
         ws.onmessage = (event) => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
             //onst dispatch = useAppDispatch();

@@ -26,7 +26,7 @@ function IndexPage() {
     return (
         <div className="App">
             <Header/>
-            Hello
+            Hello {process.env.BACKEND_HOST}
         </div>
     );
 }
