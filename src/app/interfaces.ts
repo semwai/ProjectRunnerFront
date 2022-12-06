@@ -39,6 +39,7 @@ export interface ProjectStorage {
     start: boolean // отправлен ли проект на сервер
     wait: boolean // ждем пока сервер установит и запустит проект
     status: string,
+    defaultInput: {[key:string]:string} // значения ввода по умолчанию
 }
 
 export interface Projects {

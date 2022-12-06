@@ -10,40 +10,49 @@ import Inputs from "./inputs/Inputs";
 
 function Page() {
     const project = useAppSelector(selectProject)
-    const [input, setInput] = useState("");
+    const [stdin, setStdin] = useState("") // Ввод строки в терминал
+    // Данные, которые передаются при запуске проекта и изменяются в элементах ввода
+    const [input, setInput] = useState<{[key:string]:string;}>(project.defaultInput)
     const dispatch = useAppDispatch();
 
+    // обновить значение
+    const updateInput = (key: string, value: string) => {
+        let newState = structuredClone(input)
+        newState[key] = value
+        setInput(newState)
+    }
+
     const send = () => {
-        dispatch(puts({text: input + '\n', type: 'stdin'}))
-        project.ws?.send(JSON.stringify({type: 'stdio', data: input}))
-        setInput('')
+        dispatch(puts({text: stdin + '\n', type: 'stdin'}))
+        project.ws?.send(JSON.stringify({type: 'stdio', data: stdin}))
+        setStdin('')
     }
 
     const startProject = () => {
-         dispatch(start())
+        dispatch(start(input))
     }
 
     const restartProject = () => {
         dispatch(restart())
     }
-
+    // запущенный проект, появляется терминал
     const started = project.wait?<div className={styles.wait}><Spinner/></div>:(<>
         <div className={styles.containerItem}>
             <div className={styles.buttons}>
                 <div className={styles.send}>
-                    <button onClick={send} className={styles.btn} disabled={!input.length}>send</button>
+                    <button onClick={send} className={styles.btn} disabled={!stdin.length}>send</button>
                 </div>
                 <div>
                     <button onClick={restartProject} className={styles.btn}>restart</button>
                 </div>
             </div>
             <div className={styles.areaBox}>
-                <textarea className={styles.input} placeholder='send to process:' value={input} onChange={e => setInput(e.target.value)}/>
+                <textarea className={styles.input} placeholder='send to process:' value={stdin} onChange={e => setStdin(e.target.value)}/>
             </div>
         </div>
         <div className={styles.containerItem}><Terminal/></div>
     </>)
-
+    // для незапущенного проекта вывожу кнопку запуска
     const not_started = (<div className={[styles.container, styles.containerItem].join(' ')}>
         <button onClick={startProject}>start project</button>
     </div>)
@@ -51,7 +60,7 @@ function Page() {
     return <>
         <div><h1>{project.value?.name}</h1></div>
         <div className={styles.containerItem}>
-            <Inputs/>
+            <Inputs input={input} updateInput={updateInput}/>
         </div>
         {project.start?started:not_started}
 

@@ -9,7 +9,8 @@ const initialState: ProjectStorage = {
     ws: null,
     start: false,
     wait: true,
-    status: 'idle'
+    status: 'idle',
+    defaultInput: {param: "123"}
 };
 
 
@@ -22,11 +23,12 @@ export const projectSlice = createSlice({
             if (state.value !== null)
                 state.value.example = action.payload
         },
-        start: (state) => {
+        start: (state, action: PayloadAction<{[key:string]:string}>) => {
+            console.log(JSON.stringify(action.payload))
             state.start = true
             state.ws?.send(JSON.stringify({
-                type: 'program',
-                data: state.value?.example
+                type: 'start',
+                data: action.payload
             }))
         },
         setWait: (state, action: PayloadAction<boolean>) => {
@@ -56,6 +58,7 @@ export const projectSlice = createSlice({
             .addCase(getProject.fulfilled, (state, action) => {
                 state.status = 'idle';
                 state.value = action.payload;
+                state.defaultInput = Object.fromEntries(state.value.ui.data.map(e => [e.name, e.default]))
                 state.ws = new WebSocket(`ws://${window.location.hostname + ':8000'}/ws?project_id=${action.payload.id}`)
                 //console.log(state.ws)
             })
