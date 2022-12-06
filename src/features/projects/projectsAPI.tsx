@@ -1,9 +1,7 @@
-
-// A mock function to mimic making an async request for data
-import {Project} from "./projectsSlice";
+import {TinyProject} from "../../app/interfaces";
 
 interface FetchProject {
-    data: Project[]
+    data: TinyProject[]
 }
 
 export async function fetchProjects(): Promise<FetchProject> {

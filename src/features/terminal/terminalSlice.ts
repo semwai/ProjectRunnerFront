@@ -1,22 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-
-export interface TerminalString {
-    text: string
-    type: 'stdout' | 'stderr' | 'stdin' | 'ExitCode'
-}
-
-export interface TerminalData {
-    value: TerminalString[]
-}
+import {TerminalData, TerminalString} from "../../app/interfaces";
 
 const initialState: TerminalData = {
-    value: [
-        /*{text: 'hello world, input value:', type: 'stdout'},
-        {text: '123321\n', type: 'stdin'},
-        {text: 'errorerrorerrorerrorerrorerror\n', type: 'stderr'},
-        {text: 'Process finished with exit code 0\n', type: 'ExitCode'}*/
-    ],
+    value: [],
 };
 
 
