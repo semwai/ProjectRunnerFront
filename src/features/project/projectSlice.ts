@@ -1,26 +1,16 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
 import {fetchProject} from "./projectAPI";
+import {ProjectStorage} from "../../app/interfaces";
 
-export interface Project {
-    id: number, name: string, description: string, lang: string, example: string
-
-}
-
-export interface ProjectStorage {
-    value: Project | null
-    ws: WebSocket | null
-    start: boolean // отправлен ли проект на сервер
-    wait: boolean // ждем пока сервер установит и запустит проект
-    status: string
-}
 
 const initialState: ProjectStorage = {
     value: null,
     ws: null,
     start: false,
     wait: true,
-    status: 'idle'
+    status: 'idle',
+    ui: []
 };
 
 

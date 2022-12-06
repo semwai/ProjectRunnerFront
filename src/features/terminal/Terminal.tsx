@@ -1,7 +1,8 @@
 import React, {useEffect, useRef} from "react";
 import styles from './Terminal.module.css'
 import {useAppSelector} from "../../app/hooks";
-import {selectTerminal, TerminalString} from "./terminalSlice";
+import {selectTerminal} from "./terminalSlice";
+import {TerminalString} from "../../app/interfaces";
 
 const TerminalStringComponent = (str: TerminalString) => {
 

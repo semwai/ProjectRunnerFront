@@ -1,5 +1,4 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
 import projectsReducer from '../features/projects/projectsSlice';
 import projectReducer, {setWait} from '../features/project/projectSlice';
 import terminalReducer, {clear, puts} from '../features/terminal/terminalSlice';
@@ -8,7 +7,6 @@ let ws: WebSocket | null = null
 
 export const store = configureStore({
     reducer: {
-        counter: counterReducer,
         projects: projectsReducer,
         project: projectReducer,
         terminal: terminalReducer

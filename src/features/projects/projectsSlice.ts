@@ -1,16 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
 import {fetchProjects} from "./projectsAPI";
+import {Projects, TinyProject} from "../../app/interfaces";
 
-export interface Project {
-    id: number, name: string, description: string
-
-}
-
-export interface Projects {
-    value: Project[]
-    status: string
-}
 
 const initialState: Projects = {
     value: [],
@@ -23,7 +15,7 @@ export const projectSlice = createSlice({
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-        addProject: (state, action: PayloadAction<Project>) => {
+        addProject: (state, action: PayloadAction<TinyProject>) => {
             state.value = [...state.value, action.payload]
         }
     },
