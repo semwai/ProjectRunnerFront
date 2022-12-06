@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import styles from './Project.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {restart, selectProject, start} from "./projectSlice";
-import {Input} from "./Input";
 import {Spinner} from "../spinner/Spinner";
 import {Terminal} from "../terminal/Terminal";
 import {puts} from "../terminal/terminalSlice";
+import Inputs from "./inputs/Inputs";
 
 
 function Page() {
@@ -50,7 +50,9 @@ function Page() {
 
     return <>
         <div><h1>{project.value?.name}</h1></div>
-        <div className={styles.containerItem}><Input/></div>
+        <div className={styles.containerItem}>
+            <Inputs/>
+        </div>
         {project.start?started:not_started}
 
     </>

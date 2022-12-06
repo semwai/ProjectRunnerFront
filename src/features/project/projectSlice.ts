@@ -9,8 +9,7 @@ const initialState: ProjectStorage = {
     ws: null,
     start: false,
     wait: true,
-    status: 'idle',
-    ui: []
+    status: 'idle'
 };
 
 

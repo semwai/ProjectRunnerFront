@@ -1,7 +1,21 @@
 
+export interface Input {
+    name: string,
+    description: string,
+    type: "text" | "number" | "list" | "code"
+    default: string,
+    destination: "param" | "env" | "file"
+    file: string
+    env: string
+    language: string
+}
+
+export interface UI {
+    data: Input[]
+}
 
 export interface Project {
-    id: number, name: string, description: string, lang: string, example: string, ui: object[]
+    id: number, name: string, description: string, lang: string, example: string, ui: UI
 }
 
 export interface TinyProject {
@@ -18,13 +32,13 @@ export interface TerminalData {
     value: TerminalString[]
 }
 
+
 export interface ProjectStorage {
     value: Project | null
     ws: WebSocket | null
     start: boolean // отправлен ли проект на сервер
     wait: boolean // ждем пока сервер установит и запустит проект
     status: string,
-    ui: object[]
 }
 
 export interface Projects {

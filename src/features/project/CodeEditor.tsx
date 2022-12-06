@@ -5,7 +5,7 @@ import {selectProject, writeCode} from "./projectSlice";
 import {Spinner} from "../spinner/Spinner";
 import styles from './Project.module.css'
 
-export function Input() {
+export function CodeEditor() {
     const project = useAppSelector(selectProject)
     const options = {
         selectOnLineNumbers: true,
