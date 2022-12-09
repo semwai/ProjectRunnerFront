@@ -15,7 +15,7 @@ export interface UI {
 }
 
 export interface Project {
-    id: number, name: string, description: string, lang: string, example: string, ui: UI
+    id: number, name: string, description: string, lang: string, ui: UI
 }
 
 export interface TinyProject {
