@@ -11,7 +11,11 @@ app.use(express.static(path.join(__dirname, BUILD_FOLDER)));
 
 app.get('/*', function (req, res) {
     console.log(req.method, req.ip, req.url)
-    res.sendFile(path.join(__dirname, BUILD_FOLDER, "index.html"));
+    res.sendFile(path.join(__dirname, BUILD_FOLDER, "index.html"), (err) => {
+        console.error(err)
+        res.sendStatus(404)
+    });
+
 });
 
 app.listen(PORT);
