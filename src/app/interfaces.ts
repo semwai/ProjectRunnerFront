@@ -2,12 +2,13 @@
 export interface Input {
     name: string,
     description: string,
-    type: "text" | "number" | "list" | "code"
+    type: "text" | "number" | "list" | "code" | "textarea"
     default: string,
     destination: "param" | "env" | "file"
     file: string
     env: string
     language: string
+    values: { title: string, value: string }[]
 }
 
 export interface UI {

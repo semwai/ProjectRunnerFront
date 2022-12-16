@@ -3,9 +3,10 @@ import {selectProject} from "../projectSlice";
 import {Input} from "../../../app/interfaces";
 import {CodeEditor} from "./CodeEditor";
 import styles from './Inputs.module.css'
+import {ChangeEvent} from "react";
 
 export interface prop {
-    input: {[key:string]:string;},
+    input: { [key: string]: string; },
     updateInput: (key: string, value: string) => void
 }
 
@@ -13,24 +14,52 @@ export default function Inputs(props: prop) {
     const project = useAppSelector(selectProject)
 
     return <div>
-        {project.value?.ui.data.map((e, key) =>
-            <div className={styles.input} key={key}>
-                {switcher(e, props)}
-            </div>) }
+        {project.value?.ui.data.map((e, key) => <div className={styles.input} key={key}>
+            {switcher(e, props)}
+        </div>)}
     </div>
 }
 
 function switcher(input: Input, props: prop) {
+    // Парсинг и выбор графического элемента
+    let header = <></>
+    let body = <></>
+    const value = props.input[input.name]
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => props.updateInput(input.name, e.target.value)
+    const onChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => props.updateInput(input.name, e.target.value)
+    const onChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => props.updateInput(input.name, e.target.value)
+    switch (input.destination) {
+        case "file":
+            header = <div title={input.description}>{input.file}</div>
+            break
+        case "param":
+            header = <div title={input.description}>{input.name}:</div>
+            break
+        case "env":
+            header = <div title={input.description}>{input.name}</div>
+            break
+    }
+
+
     switch (input.type) {
         case "code":
-            return <div>{input.file}<CodeEditor props={props} input={input}/></div>
+            body = <CodeEditor props={props} input={input}/>
+            break
         case "text":
-            return <div title={input.description}>{input.name}:
-                <input type='text' value={props.input[input.name]} onChange={e => props.updateInput(input.name, e.target.value)}/>
-            </div>
+            body = <input type='text' value={value} onChange={onChange}/>
+            break
         case "number":
-            return <div>number</div>
+            body = <input type='number' value={value} onChange={onChange}/>
+            break
         case "list":
-            return <div>list</div>
+            body = <select className={styles.select} defaultValue={input.default} onChange={onChangeSelect}>
+                {input.values.map((v, i) => <option key={i} value={v.value}>{v.title}</option>)}
+            </select>
+            break
+        case "textarea":
+            body = <textarea className={styles.textarea} value={value} onChange={onChangeTextArea}></textarea>
+            break
     }
+
+    return <div>{header}{body}</div>
 }
