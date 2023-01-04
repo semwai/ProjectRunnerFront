@@ -2,14 +2,15 @@ import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import projectsReducer from '../features/projects/projectsSlice';
 import projectReducer, {setWait} from '../features/project/projectSlice';
 import terminalReducer, {clear, puts} from '../features/terminal/terminalSlice';
-
+import loginReducer from '../features/login/loginSlice';
 let ws: WebSocket | null = null
 
 export const store = configureStore({
     reducer: {
         projects: projectsReducer,
         project: projectReducer,
-        terminal: terminalReducer
+        terminal: terminalReducer,
+        login: loginReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

@@ -9,6 +9,7 @@ import {getProjects} from "./features/projects/projectsSlice";
 
 import * as monaco from "monaco-editor";
 import { loader } from "@monaco-editor/react";
+import {testLogin} from "./features/login/loginSlice";
 loader.config({ monaco });
 
 
@@ -44,6 +45,7 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 store.dispatch(getProjects())
+store.dispatch(testLogin())
 
 root.render(
   <React.StrictMode>

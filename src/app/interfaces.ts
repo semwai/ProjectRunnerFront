@@ -47,3 +47,9 @@ export interface Projects {
     value: TinyProject[]
     status: string
 }
+
+export interface LoginData {
+    auth: boolean
+    mail: string
+    status: 'loading' | 'idle' | 'failed'
+}
