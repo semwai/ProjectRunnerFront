@@ -13,6 +13,9 @@ export async function fetchLogin(token: string): Promise<FetchLogin> {
             credentials: "include",
             body: JSON.stringify({token: token})
         })
+    if (res.status !== 200) {
+        throw new Error(res.statusText);
+    }
     return res.json()
 }
 
@@ -22,5 +25,8 @@ export async function fetchTestLogin(): Promise<FetchLogin> {
 
             credentials: "include",
         })
+    if (res.status !== 200) {
+        throw new Error(res.statusText);
+    }
     return res.json()
 }

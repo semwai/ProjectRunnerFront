@@ -4,7 +4,7 @@ import {LoginData} from "../../app/interfaces";
 import {fetchLogin, fetchTestLogin} from "./loginAPI";
 
 const initialState: LoginData = {
-    auth:  false,
+    auth: false,
     mail: '',
     status: 'idle'
 };
