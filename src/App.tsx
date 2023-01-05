@@ -78,22 +78,31 @@ function ProjectPage() {
 
 function LoginPage() {
     const dispatch = useAppDispatch();
+    const login = useAppSelector(selectLogin);
+
+    let content = <GoogleLogin
+        theme="filled_black"
+        width="300px"
+        onSuccess={credentialResponse => {
+            dispatch(postLogin(credentialResponse.credential!))
+        }}
+        onError={() => {
+            alert('Login Failed');
+        }}
+    />
+
+    if (login.auth) {
+        content = <div>Здравствуйте, {login.mail} <div>Выйти</div>
+        </div>
+
+    }
+
     return (
         <div className="App">
             <Header/>
             <br/>
             <div className="App-header">
-            <GoogleLogin
-                theme="filled_black"
-                width="300px"
-                onSuccess={credentialResponse => {
-                    console.log(credentialResponse);
-                    dispatch(postLogin(credentialResponse.credential!))
-                }}
-                onError={() => {
-                    console.log('Login Failed');
-                }}
-            />
+                {content}
             </div>
         </div>
     );
