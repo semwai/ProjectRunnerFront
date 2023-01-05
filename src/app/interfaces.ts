@@ -2,12 +2,13 @@
 export interface Input {
     name: string,
     description: string,
-    type: "text" | "number" | "list" | "code"
+    type: "text" | "number" | "list" | "code" | "textarea"
     default: string,
     destination: "param" | "env" | "file"
     file: string
     env: string
     language: string
+    values: { title: string, value: string }[]
 }
 
 export interface UI {
@@ -15,7 +16,7 @@ export interface UI {
 }
 
 export interface Project {
-    id: number, name: string, description: string, lang: string, example: string, ui: UI
+    id: number, name: string, description: string, lang: string, ui: UI
 }
 
 export interface TinyProject {
@@ -45,4 +46,10 @@ export interface ProjectStorage {
 export interface Projects {
     value: TinyProject[]
     status: string
+}
+
+export interface LoginData {
+    auth: boolean
+    mail: string
+    status: 'loading' | 'idle' | 'failed'
 }

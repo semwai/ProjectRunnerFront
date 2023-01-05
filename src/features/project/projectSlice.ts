@@ -19,10 +19,6 @@ export const projectSlice = createSlice({
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-        writeCode: (state, action: PayloadAction<string>) => {
-            if (state.value !== null)
-                state.value.example = action.payload
-        },
         start: (state, action: PayloadAction<{[key:string]:string}>) => {
             console.log(JSON.stringify(action.payload))
             state.start = true
@@ -76,7 +72,7 @@ export const getProject = createAsyncThunk(
     }
 );
 
-export const { writeCode, start, restart, setWait } = projectSlice.actions;
+export const { start, restart, setWait } = projectSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
