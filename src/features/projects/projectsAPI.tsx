@@ -5,7 +5,7 @@ interface FetchProject {
 }
 
 export async function fetchProjects(): Promise<FetchProject> {
-    let res = await fetch(`http://${window.location.hostname}:8000/api/projects`,
+    let res = await fetch(`${process.env.REACT_APP_BACKEND_HOST}/api/projects`,
         {credentials: "include",})
     if (res.status !== 200)
         throw new Error(res.statusText)

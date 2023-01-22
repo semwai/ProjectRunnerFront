@@ -35,7 +35,7 @@ export const projectSlice = createSlice({
                 return
             state.start = false
             state.ws.close()
-            state.ws = new WebSocket(`ws://${window.location.hostname + ':8000'}/ws?project_id=${state.value.id}`)
+            state.ws = new WebSocket(`${process.env.REACT_APP_WEBSOCKET_HOST}/ws?project_id=${state.value.id}`)
         }
     },
     // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -55,7 +55,7 @@ export const projectSlice = createSlice({
                 state.status = 'idle';
                 state.value = action.payload;
                 state.defaultInput = Object.fromEntries(state.value.ui.data.map(e => [e.name, e.default]))
-                state.ws = new WebSocket(`ws://${window.location.hostname + ':8000'}/ws?project_id=${action.payload.id}`)
+                state.ws = new WebSocket(`${process.env.REACT_APP_WEBSOCKET_HOST}/ws?project_id=${action.payload.id}`)
                 //console.log(state.ws)
             })
             .addCase(getProject.rejected, (state) => {

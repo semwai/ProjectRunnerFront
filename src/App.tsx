@@ -8,7 +8,8 @@ import {Project} from "./features/project/Project";
 import {Header} from "./features/header/Header";
 import {useAppDispatch, useAppSelector} from "./app/hooks";
 import {getProject} from "./features/project/projectSlice";
-import {postLogin, selectLogin} from "./features/login/loginSlice";
+import {Logout, postLogin, selectLogin} from "./features/login/loginSlice";
+import {getProjects} from "./features/projects/projectsSlice";
 
 function App() {
     return (
@@ -64,16 +65,19 @@ function ProjectPage() {
         }
     },[dispatch, id, login.auth]);
 
-    if (!login.auth) {
-        return <LoginPage/>
+    switch (login.auth) {
+        case -1:
+            return <></>
+        case 0:
+            return <LoginPage/>
+        case 1:
+            return (
+                <div className="App">
+                    <Header/>
+                    <Project/>
+                </div>
+            );
     }
-
-    return (
-        <div className="App">
-            <Header/>
-            <Project/>
-        </div>
-    );
 }
 
 function LoginPage() {
@@ -85,6 +89,7 @@ function LoginPage() {
         width="300px"
         onSuccess={credentialResponse => {
             dispatch(postLogin(credentialResponse.credential!))
+            setTimeout(() => {dispatch(getProjects())}, 1000)
         }}
         onError={() => {
             alert('Login Failed');
@@ -92,7 +97,7 @@ function LoginPage() {
     />
 
     if (login.auth) {
-        content = <div>Здравствуйте, {login.mail} <div>Выйти</div>
+        content = <div>Здравствуйте, {login.mail} <div onClick={() => dispatch(Logout())}>Выйти</div>
         </div>
 
     }

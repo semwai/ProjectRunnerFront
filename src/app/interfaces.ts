@@ -49,7 +49,7 @@ export interface Projects {
 }
 
 export interface LoginData {
-    auth: boolean
+    auth: -1 | 0 | 1 // -1 еще не загрузилась информация о логине, 0 - не зашел, 1 - зашел
     mail: string
     status: 'loading' | 'idle' | 'failed'
 }
