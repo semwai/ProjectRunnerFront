@@ -29,3 +29,22 @@
 .description {
     font-size: 15px;
 }
+
+.edit_link {
+    float: right;
+    color: white;
+    text-decoration: none;
+}
+
+.new_link {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    align-content: center;
+    width: 100%;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+}

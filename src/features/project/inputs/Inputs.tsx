@@ -28,6 +28,13 @@ function switcher(input: Input, props: prop) {
     const onChange = (e: ChangeEvent<HTMLInputElement>) => props.updateInput(input.name, e.target.value)
     const onChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => props.updateInput(input.name, e.target.value)
     const onChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => props.updateInput(input.name, e.target.value)
+    const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length) {
+            const data = await e.target.files[0].text()
+            props.updateInput(input.name, data)
+        }
+    }
+
     switch (input.destination) {
         case "file":
             header = <div title={input.description}>{input.file}</div>
@@ -58,6 +65,9 @@ function switcher(input: Input, props: prop) {
             break
         case "textarea":
             body = <textarea className={styles.textarea} value={value} onChange={onChangeTextArea}></textarea>
+            break
+        case "file":
+            body = <input type='file' className={styles.textarea} value={value} onChange={onChangeFile}></input>
             break
     }
 

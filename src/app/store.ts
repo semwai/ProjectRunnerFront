@@ -3,6 +3,8 @@ import projectsReducer from '../features/projects/projectsSlice';
 import projectReducer, {setWait} from '../features/project/projectSlice';
 import terminalReducer, {clear, puts} from '../features/terminal/terminalSlice';
 import loginReducer from '../features/login/loginSlice';
+import newProjectReducer from '../features/newproject/newprojectsSlice';
+
 let ws: WebSocket | null = null
 
 export const store = configureStore({
@@ -10,7 +12,8 @@ export const store = configureStore({
         projects: projectsReducer,
         project: projectReducer,
         terminal: terminalReducer,
-        login: loginReducer
+        login: loginReducer,
+        newProject: newProjectReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

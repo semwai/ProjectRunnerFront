@@ -10,6 +10,7 @@ import {useAppDispatch, useAppSelector} from "./app/hooks";
 import {getProject} from "./features/project/projectSlice";
 import {Logout, postLogin, selectLogin} from "./features/login/loginSlice";
 import {getProjects} from "./features/projects/projectsSlice";
+import {NewProject, UpdateProject} from "./features/newproject/NewProject";
 
 function App() {
     return (
@@ -21,10 +22,22 @@ function App() {
                         <Route path="/projects" element={<ProjectsPage/>}></Route>
                         <Route path="/login" element={<LoginPage/>}></Route>
                         <Route path="/project/:id" element={<ProjectPage/>}></Route>
+                        <Route path="/project/:id/edit" element={<NewProjectPage/>}></Route>
+                        <Route path="/project/new" element={<NewProjectPage/>}></Route>
+                        <Route path="*" element={<Page404/>}></Route>
                     </Routes>
                 </div>
             </Router>
         </GoogleOAuthProvider>
+    );
+}
+
+function Page404() {
+    return (
+        <div className="App">
+            <Header/>
+            404
+        </div>
     );
 }
 
@@ -49,6 +62,21 @@ function ProjectsPage() {
             <Projects/>
         </div>
     );
+}
+
+function NewProjectPage() {
+    const {id} = useParams()
+
+    if (id !== undefined)
+        return <div className="App">
+            <Header/>
+            <UpdateProject id={Number(id)}/>
+        </div>
+    else
+        return <div className="App">
+            <Header/>
+            <NewProject/>
+        </div>
 }
 
 function ProjectPage() {

@@ -1,0 +1,27 @@
+.row {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.width100 {
+    width: 100%;
+}
+
+textarea {
+    height: 100%;
+    width: 95%;
+    margin: 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.label {
+    display: inline-block;
+    width: 200px;
+}
+
+p {
+    margin: 10px;
+}

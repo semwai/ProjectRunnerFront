@@ -6,6 +6,7 @@ import {Spinner} from "../spinner/Spinner";
 import {Terminal} from "../terminal/Terminal";
 import {puts} from "../terminal/terminalSlice";
 import Inputs from "./inputs/Inputs";
+import ReactMarkdown from "react-markdown";
 
 
 function Page() {
@@ -19,6 +20,7 @@ function Page() {
     const updateInput = (key: string, value: string) => {
         let newState = structuredClone(input)
         newState[key] = value
+        console.log(key)
         setInput(newState)
     }
 
@@ -59,6 +61,9 @@ function Page() {
 
     return <>
         <div><h1>{project.value?.name}</h1></div>
+        <div className={styles.containerItem}>
+            <ReactMarkdown>{project.value?.description || ""}</ReactMarkdown>
+        </div>
         <div className={styles.containerItem}>
             <Inputs input={input} updateInput={updateInput}/>
         </div>

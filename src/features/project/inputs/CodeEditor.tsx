@@ -1,14 +1,11 @@
 import Editor from "@monaco-editor/react";
 import React from "react";
-import {useAppSelector} from "../../../app/hooks";
-import {selectProject} from "../projectSlice";
 import {Spinner} from "../../spinner/Spinner";
 import styles from './Inputs.module.css'
 import {prop} from "./Inputs";
 import {Input} from "../../../app/interfaces";
 
 export function CodeEditor({input, props}: {input: Input, props: prop}) {
-    const project = useAppSelector(selectProject)
     const options = {
         selectOnLineNumbers: true,
         automaticLayout: true,
@@ -17,7 +14,7 @@ export function CodeEditor({input, props}: {input: Input, props: prop}) {
 
     return <Editor
         height="400px"
-        language={project.value?.lang}
+        language={input.language}
         theme="vs-dark"
         value={props.input[input.name]}
         options={options}

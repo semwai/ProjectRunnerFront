@@ -2,7 +2,7 @@
 export interface Input {
     name: string,
     description: string,
-    type: "text" | "number" | "list" | "code" | "textarea"
+    type: "text" | "number" | "list" | "code" | "textarea" | "file"
     default: string,
     destination: "param" | "env" | "file"
     file: string
@@ -16,12 +16,23 @@ export interface UI {
 }
 
 export interface Project {
-    id: number, name: string, description: string, lang: string, ui: UI
+    id: number,
+    name: string,
+    description: string,
+    short_description: string,
+    version: string
+    visible: boolean
+    ui: UI
 }
 
 export interface TinyProject {
     // краткая информация о проекте
-    id: number, name: string, description: string
+    id: number,
+    name: string,
+    description: string,
+    short_description: string,
+    version: string
+    visible: boolean
 }
 
 export interface TerminalString {
@@ -51,5 +62,7 @@ export interface Projects {
 export interface LoginData {
     auth: -1 | 0 | 1 // -1 еще не загрузилась информация о логине, 0 - не зашел, 1 - зашел
     mail: string
+    name: string
+    access: "user" | "admin"
     status: 'loading' | 'idle' | 'failed'
 }

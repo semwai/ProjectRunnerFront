@@ -1,5 +1,7 @@
 interface FetchLogin {
     email: string
+    name: string
+    access: "user" | "admin"
 }
 
 export async function fetchLogin(token: string): Promise<FetchLogin> {
