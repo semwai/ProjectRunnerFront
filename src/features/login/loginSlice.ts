@@ -72,7 +72,6 @@ export const loginSlice = createSlice({
                 state.status = 'failed';
                 clear(state)
             });
-
     }
 
 });
