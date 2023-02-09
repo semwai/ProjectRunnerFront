@@ -5,7 +5,7 @@ import styles from './Inputs.module.css'
 import {prop} from "./Inputs";
 import {Input} from "../../../app/interfaces";
 
-export function CodeEditor({input, props}: {input: Input, props: prop}) {
+export function CodeEditor({input, props, defaultValue}: {input: Input, props: prop, defaultValue?: string}) {
     const options = {
         selectOnLineNumbers: true,
         automaticLayout: true,
@@ -13,6 +13,7 @@ export function CodeEditor({input, props}: {input: Input, props: prop}) {
     };
 
     return <Editor
+        defaultValue={defaultValue}
         height="400px"
         language={input.language}
         theme="vs-dark"

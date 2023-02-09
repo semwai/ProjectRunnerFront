@@ -15,12 +15,12 @@ export default function Inputs(props: prop) {
 
     return <div>
         {project.value?.ui.data.map((e, key) => <div className={styles.input} key={key}>
-            {switcher(e, props)}
+            {UIElementDecoder(e, props)}
         </div>)}
     </div>
 }
 
-function switcher(input: Input, props: prop) {
+export function UIElementDecoder(input: Input, props: prop) {
     // Парсинг и выбор графического элемента
     let header = <></>
     let body = <></>
@@ -50,21 +50,21 @@ function switcher(input: Input, props: prop) {
 
     switch (input.type) {
         case "code":
-            body = <CodeEditor props={props} input={input}/>
+            body = <CodeEditor props={props} input={input} defaultValue={input.default}/>
             break
         case "text":
-            body = <input type='text' value={value} onChange={onChange}/>
+            body = <input type='text' value={value} onChange={onChange} defaultValue={input.default}/>
             break
         case "number":
-            body = <input type='number' value={value} onChange={onChange}/>
+            body = <input type='number' value={value} onChange={onChange} defaultValue={input.default}/>
             break
         case "list":
-            body = <select className={styles.select} defaultValue={input.default} onChange={onChangeSelect}>
-                {input.values.map((v, i) => <option key={i} value={v.value}>{v.title}</option>)}
+            body = <select className={styles.select} defaultValue={input.default} onChange={onChangeSelect} >
+                {input?.values?.map((v, i) => <option key={i} value={v.value}>{v.title}</option>)}
             </select>
             break
         case "textarea":
-            body = <textarea className={styles.textarea} value={value} onChange={onChangeTextArea}></textarea>
+            body = <textarea className={styles.textarea} value={value} onChange={onChangeTextArea} defaultValue={input.default}></textarea>
             break
         case "file":
             body = <input type='file' className={styles.textarea} value={value} onChange={onChangeFile}></input>

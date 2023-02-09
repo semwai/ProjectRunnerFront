@@ -2,7 +2,8 @@ import React from 'react';
 import ReactMarkdown from "react-markdown";
 import styles from './NewProjects.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {selectNewProject, setDescription, setName, setShortDescription, setVersion} from "./newprojectsSlice";
+import {addUI, selectNewProject, setDescription, setName, setShortDescription, setVersion} from "./newprojectsSlice";
+import {NewInput} from "./Components/NewInput";
 
 
 export function NewProject() {
@@ -23,6 +24,11 @@ export function NewProject() {
                 <ReactMarkdown>{np.description}</ReactMarkdown>
             </div>
         </div>
+        <p><span className={styles.label}>UI: <button onClick={() => dispatch(addUI({name: `param${np.ui.data.length + 1}`, type: "text", language: "python", default: "", destination: "file", description: "", file: "main.py"}))}>+</button></span></p>
+
+        {np.ui.data.map((v, i) => <NewInput input={v} id={i} key={i}/>)}
+        <p><span className={styles.label}>Scenario:</span></p>
+
         <h1><button>Save</button></h1>
     </div>
 }

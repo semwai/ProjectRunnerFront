@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-import {Project} from "../../app/interfaces";
+import {Input, Project} from "../../app/interfaces";
 
 
 const initialState: Project = {
@@ -9,7 +9,7 @@ const initialState: Project = {
     id: 0,
     name: "",
     short_description: "",
-    ui: {data: []},
+    ui: {data: [{name: "123", type: "code", language: "go", default: "", destination: "file", description: "", values: [{title: 'title 1', value: '1'}]}]},
     version: ""
 };
 
@@ -31,10 +31,21 @@ export const newProjectSlice = createSlice({
         setVersion: (state, action: PayloadAction<string>) => {
             state.version = action.payload
         },
+        addUI: (state, action: PayloadAction<Input>) => {
+            state.ui.data = [...state.ui.data, action.payload]
+        },
+        removeUI: (state, action: PayloadAction<string>) => {
+            // удалить по имени
+            state.ui.data = state.ui.data.filter(e => e.name !== action.payload)
+        },
+        updateUI: (state, action: PayloadAction<{new: Input, id: number }>) => {
+            // удалить по имени
+            state.ui.data[action.payload.id] = action.payload.new
+        }
     },
 });
 
-export const { setName, setDescription, setShortDescription, setVersion } = newProjectSlice.actions;
+export const { setName, setDescription, setShortDescription, setVersion, addUI, removeUI, updateUI } = newProjectSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
