@@ -10,7 +10,34 @@ const initialState: Project = {
     name: "",
     short_description: "",
     ui: {data: [{name: "123", type: "code", language: "go", default: "", destination: "file", description: "", values: [{title: 'title 1', value: '1'}]}]},
-    version: ""
+    version: "",
+    scenario: {
+        type: "Steps",
+        data: [{
+            type: "Run",
+            command: "python main.py",
+            stdin: true,
+            stdout: true,
+            echo: false,
+            exitCode: true
+        },{
+            type: "Print",
+            text: "Hello world"
+        },{
+            type: "Steps",
+            data: [{
+                type: "Run",
+                command: "python main.py",
+                stdin: true,
+                stdout: true,
+                echo: false,
+                exitCode: true
+            },{
+                type: "Print",
+                text: "Hello world"
+            }]
+        }]
+    }
 };
 
 

@@ -103,7 +103,7 @@ export function MainInputEditor(props: { input: Input, id: number }) {
             <option>env</option>
             <option>file</option>
         </select>
-        {props.input.type === 'list' ? <p><span className={styles.label}>values:</span></p> : <></>}
+        {props.input.type === 'list' ? <><p><span className={styles.label}>values:</span></p>
         <ul>
             {props.input.values?.map((v, i) =>
                 <li>title
@@ -114,7 +114,8 @@ export function MainInputEditor(props: { input: Input, id: number }) {
                     <button onClick={() => removeValue(i)}>-</button>
                 </li>)}
             <button onClick={addValue}>add</button>
-        </ul>
+        </ul></>
+            : <></>}
 
     </>
 

@@ -4,6 +4,7 @@ import styles from './NewProjects.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {addUI, selectNewProject, setDescription, setName, setShortDescription, setVersion} from "./newprojectsSlice";
 import {NewInput} from "./Components/NewInput";
+import {StepsComponent} from "./Components/Steps/StepsComponent";
 
 
 export function NewProject() {
@@ -28,6 +29,16 @@ export function NewProject() {
 
         {np.ui.data.map((v, i) => <NewInput input={v} id={i} key={i}/>)}
         <p><span className={styles.label}>Scenario:</span></p>
+
+        <div className={styles.row}>
+            <div className={styles.column}>
+                <StepsComponent steps={np.scenario} path={[]}/>
+            </div>
+            <div className={styles.column}>
+                <pre>{JSON.stringify(np.scenario, null, 4)}</pre>
+            </div>
+        </div>
+
 
         <h1><button>Save</button></h1>
     </div>

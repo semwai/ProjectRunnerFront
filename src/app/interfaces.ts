@@ -15,6 +15,31 @@ export interface UI {
     data: Input[]
 }
 
+export interface Step {
+    type: "Step" | "Run" | "File" | "Print" | "Steps"
+}
+export interface File extends Step{
+    name: string
+    data: string
+}
+
+export interface Print extends Step{
+    text: string
+    file: "stdout" | "stderr"
+}
+
+export interface Run extends Step{
+    command: string
+    stdin: boolean
+    stdout: boolean
+    exitCode: boolean
+    echo: boolean
+}
+
+export interface Steps extends Step{
+    data: (Step | Steps | Run | File | Print)[]
+}
+
 export interface Project {
     id: number,
     name: string,
@@ -23,6 +48,7 @@ export interface Project {
     version: string
     visible: boolean
     ui: UI
+    scenario: Steps
 }
 
 export interface TinyProject {
