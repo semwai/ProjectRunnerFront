@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-import {Input, Project} from "../../app/interfaces";
+import {Input, Project, Steps} from "../../app/interfaces";
 
 
 const initialState: Project = {
@@ -68,11 +68,20 @@ export const newProjectSlice = createSlice({
         updateUI: (state, action: PayloadAction<{new: Input, id: number }>) => {
             // удалить по имени
             state.ui.data[action.payload.id] = action.payload.new
+        },
+        addCMD: (state, action: PayloadAction<{parent_path: number[]}>) => {
+            let root = state.scenario
+            let path = [...action.payload.parent_path]
+            while (path.length > 0) {
+                root = root.data[path[0]] as Steps
+                console.log(path.shift())
+            }
+            root.data = [...root.data, {type: "Print", text: "Hello"}]
         }
     },
 });
 
-export const { setName, setDescription, setShortDescription, setVersion, addUI, removeUI, updateUI } = newProjectSlice.actions;
+export const { setName, setDescription, setShortDescription, setVersion, addUI, removeUI, updateUI, addCMD } = newProjectSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
