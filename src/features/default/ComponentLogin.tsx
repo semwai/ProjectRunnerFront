@@ -1,7 +1,7 @@
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {Logout, postLogin, selectLogin} from "../login/loginSlice";
 import {GoogleLogin} from "@react-oauth/google";
-import {getPages} from "../pages/pagessSlice";
+import {getPages} from "../pages/pagesSlice";
 import {Header} from "./header/Header";
 import React from "react";
 import './Default.css';

@@ -5,11 +5,12 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import {getPages} from "./features/pages/pagessSlice";
+import {getPages} from "./features/pages/pagesSlice";
 
 import * as monaco from "monaco-editor";
 import { loader } from "@monaco-editor/react";
 import {testLogin} from "./features/login/loginSlice";
+import {getProjects} from "./features/projects/projectsSlice";
 loader.config({ monaco });
 
 
@@ -45,6 +46,7 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 store.dispatch(getPages())
+store.dispatch(getProjects())
 store.dispatch(testLogin())
 
 root.render(

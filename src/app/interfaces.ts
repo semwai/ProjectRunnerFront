@@ -82,7 +82,7 @@ export interface PageStorage {
 
 export interface Pages {
     value: TinyPage[]
-    status: string
+    status: 'loading' | 'idle' | 'failed'
 }
 
 export interface LoginData {
@@ -90,5 +90,25 @@ export interface LoginData {
     mail: string
     name: string
     access: "user" | "admin"
+    status: 'loading' | 'idle' | 'failed'
+}
+export interface Entry {
+    id: number
+    short_description: string
+}
+
+export interface Content {
+    data: (Entry | Content)[]
+}
+
+export interface Project {
+    id: number,
+    name: string,
+    description: string,
+    content: Content
+}
+
+export interface Projects {
+    value: Project[]
     status: 'loading' | 'idle' | 'failed'
 }

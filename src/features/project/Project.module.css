@@ -1,0 +1,50 @@
+
+.project {
+    background-color: #1e1d1d;
+    padding: 25px;
+    margin-top: 10px;
+    color: white;
+    max-width: 600px;
+    width: 100%;
+    text-decoration: none;
+    font-size: x-large;
+}
+
+.spin {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    font-size: 25px;
+}
+
+.description {
+    font-size: 15px;
+}
+
+.edit_link {
+    float: right;
+    color: white;
+    text-decoration: none;
+}
+
+.new_link {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    align-content: center;
+    width: 100%;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+}

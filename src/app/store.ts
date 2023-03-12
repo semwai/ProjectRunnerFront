@@ -1,19 +1,21 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
-import projectsReducer from '../features/pages/pagessSlice';
-import projectReducer, {setWait} from '../features/page/pageSlice';
+import pagesReducer from '../features/pages/pagesSlice';
+import pageReducer, {setWait} from '../features/page/pageSlice';
 import terminalReducer, {clear, puts} from '../features/terminal/terminalSlice';
 import loginReducer from '../features/login/loginSlice';
-import newProjectReducer from '../features/newpage/newpageSlice';
+import newPageReducer from '../features/newpage/newpageSlice';
+import projectsReducer from '../features/projects/projectsSlice';
 
 let ws: WebSocket | null = null
 
 export const store = configureStore({
     reducer: {
-        pages: projectsReducer,
-        page: projectReducer,
+        pages: pagesReducer,
+        page: pageReducer,
         terminal: terminalReducer,
         login: loginReducer,
-        newProject: newProjectReducer
+        newPage: newPageReducer,
+        projects: projectsReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

@@ -8,6 +8,8 @@ import {ComponentPages} from "./features/default/ComponentPages";
 import {ComponentNewPage} from "./features/default/ComponentNewPage";
 import {ComponentPage} from "./features/default/ComponentPage";
 import {ComponentLogin} from "./features/default/ComponentLogin";
+import {ComponentProjects} from "./features/default/ComponentProjects";
+import {ComponentProject} from "./features/default/ComponentProject";
 
 function App() {
     return (
@@ -21,6 +23,8 @@ function App() {
                         <Route path="/page/:id" element={<ComponentPage/>}></Route>
                         <Route path="/page/:id/edit" element={<ComponentNewPage/>}></Route>
                         <Route path="/page/new" element={<ComponentNewPage/>}></Route>
+                        <Route path="/projects" element={<ComponentProjects/>}></Route>
+                        <Route path="/project/:id" element={<ComponentProject/>}></Route>
                         <Route path="*" element={<Component404/>}></Route>
                     </Routes>
                 </div>
