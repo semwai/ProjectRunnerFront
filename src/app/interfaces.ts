@@ -40,7 +40,7 @@ export interface Steps extends Step{
     data: (Step | Steps | Run | File | Print)[]
 }
 
-export interface Project {
+export interface Page {
     id: number,
     name: string,
     description: string,
@@ -51,7 +51,7 @@ export interface Project {
     scenario: Steps
 }
 
-export interface TinyProject {
+export interface TinyPage {
     // краткая информация о проекте
     id: number,
     name: string,
@@ -71,8 +71,8 @@ export interface TerminalData {
 }
 
 
-export interface ProjectStorage {
-    value: Project | null
+export interface PageStorage {
+    value: Page | null
     ws: WebSocket | null
     start: boolean // отправлен ли проект на сервер
     wait: boolean // ждем пока сервер установит и запустит проект
@@ -80,8 +80,8 @@ export interface ProjectStorage {
     defaultInput: {[key:string]:string} // значения ввода по умолчанию
 }
 
-export interface Projects {
-    value: TinyProject[]
+export interface Pages {
+    value: TinyPage[]
     status: string
 }
 

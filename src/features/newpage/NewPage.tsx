@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactMarkdown from "react-markdown";
-import styles from './NewProjects.module.css'
+import styles from './NewPage.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {addUI, selectNewProject, setDescription, setName, setShortDescription, setVersion} from "./newprojectsSlice";
+import {addUI, selectNewProject, setDescription, setName, setShortDescription, setVersion} from "./newpageSlice";
 import {NewInput} from "./Components/NewInput";
 import {StepsComponent} from "./Components/Steps/StepsComponent";
 
 
-export function NewProject() {
+export function NewPage() {
     const dispatch = useAppDispatch();
     const np = useAppSelector(selectNewProject);
 

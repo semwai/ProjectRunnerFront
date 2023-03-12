@@ -1,19 +1,19 @@
 import React from 'react';
 import {useAppSelector} from '../../app/hooks';
-import {selectProjects,} from './projectsSlice';
-import styles from './Projects.module.css'
+import {selectPages,} from './pagessSlice';
+import styles from './Pages.module.css'
 import {Link} from "react-router-dom";
 import {Spinner} from "../spinner/Spinner";
-import {TinyProject} from "../../app/interfaces";
+import {TinyPage} from "../../app/interfaces";
 import {selectLogin} from "../login/loginSlice";
 
-function ProjectComponent(props: TinyProject) {
+function ProjectComponent(props: TinyPage) {
     const login = useAppSelector(selectLogin);
     //const ex = props.example.length > 25 ? props.example.substring(0, 25) + '...' : props.example
     return (
     <div className={styles.project} >
         <div className={styles.name}>
-            <Link to={"/project/" + props.id} className={styles.link}>{props.name}</Link> {login.access === "admin"?<EditProjectLink id={props.id}/>:<></>}
+            <Link to={"/page/" + props.id} className={styles.link}>{props.name}</Link> {login.access === "admin"?<EditProjectLink id={props.id}/>:<></>}
         </div>
         <div className={styles.description}>
             {props.short_description}
@@ -36,8 +36,8 @@ function NewProjectLink() {
 }
 
 
-export function Projects() {
-    const projects = useAppSelector(selectProjects);
+export function Pages() {
+    const projects = useAppSelector(selectPages);
     const login = useAppSelector(selectLogin);
     let content
 

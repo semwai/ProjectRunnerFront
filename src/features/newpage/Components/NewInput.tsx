@@ -1,9 +1,9 @@
 import {Input} from "../../../app/interfaces";
 import {useAppDispatch} from "../../../app/hooks";
-import styles from "../NewProjects.module.css";
-import {removeUI} from "../newprojectsSlice";
+import styles from "../NewPage.module.css";
+import {removeUI} from "../newpageSlice";
 import {MainInputEditor} from "./MainInputEditor";
-import {UIElementDecoder} from "../../project/inputs/Inputs";
+import {UIElementDecoder} from "../../page/inputs/Inputs";
 import React from "react";
 
 export function NewInput(props: { input: Input, id: number }) {

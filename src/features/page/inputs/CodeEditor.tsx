@@ -9,7 +9,7 @@ export function CodeEditor({input, props, defaultValue}: {input: Input, props: p
     const options = {
         selectOnLineNumbers: true,
         automaticLayout: true,
-        // readOnly: project.start // Блокирую изменение кода когда проект запущен
+        // readOnly: page.start // Блокирую изменение кода когда проект запущен
     };
 
     return <Editor

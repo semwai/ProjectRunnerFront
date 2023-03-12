@@ -5,7 +5,7 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import {getProjects} from "./features/projects/projectsSlice";
+import {getPages} from "./features/pages/pagessSlice";
 
 import * as monaco from "monaco-editor";
 import { loader } from "@monaco-editor/react";
@@ -44,7 +44,7 @@ window.MonacoEnvironment = {
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
-store.dispatch(getProjects())
+store.dispatch(getPages())
 store.dispatch(testLogin())
 
 root.render(

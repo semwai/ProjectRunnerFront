@@ -1,9 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-import {Input, Project, Steps} from "../../app/interfaces";
+import {Input, Page, Steps} from "../../app/interfaces";
 
 
-const initialState: Project = {
+const initialState: Page = {
     visible: false,
     description: "",
     id: 0,

@@ -1,8 +1,8 @@
 import {Link} from "react-router-dom";
 import React from "react";
 import styles from './Header.module.css';
-import {useAppSelector} from "../../app/hooks";
-import {selectLogin} from "../login/loginSlice";
+import {useAppSelector} from "../../../app/hooks";
+import {selectLogin} from "../../login/loginSlice";
 
 
 export function Header() {

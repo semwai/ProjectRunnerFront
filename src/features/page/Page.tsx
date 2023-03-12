@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import styles from './Project.module.css'
+import styles from './Page.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {restart, selectProject, start} from "./projectSlice";
+import {restart, selectPage, start} from "./pageSlice";
 import {Spinner} from "../spinner/Spinner";
 import {Terminal} from "../terminal/Terminal";
 import {puts} from "../terminal/terminalSlice";
@@ -9,8 +9,8 @@ import Inputs from "./inputs/Inputs";
 import ReactMarkdown from "react-markdown";
 
 
-function Page() {
-    const project = useAppSelector(selectProject)
+function PageComponent() {
+    const project = useAppSelector(selectPage)
     const [stdin, setStdin] = useState("") // Ввод строки в терминал
     // Данные, которые передаются при запуске проекта и изменяются в элементах ввода
     const [input, setInput] = useState<{[key:string]:string;}>(project.defaultInput)
@@ -72,13 +72,13 @@ function Page() {
     </>
 }
 
-export function Project() {
-    const project = useAppSelector(selectProject)
+export function Page() {
+    const project = useAppSelector(selectPage)
 
     let content
     switch (project.status) {
         case 'idle':
-            content = project.value ? <Page/> : <div className={styles.center}><Spinner/></div>
+            content = project.value ? <PageComponent/> : <div className={styles.center}><Spinner/></div>
             break
         case 'loading':
             content = <div className={styles.center}><Spinner/></div>

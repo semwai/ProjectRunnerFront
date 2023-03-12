@@ -2,7 +2,7 @@ import React from 'react';
 import {Steps} from "../../../../app/interfaces";
 import {StepComponent} from "./Step";
 import {useAppDispatch} from "../../../../app/hooks";
-import {addCMD} from "../../newprojectsSlice";
+import {addCMD} from "../../newpageSlice";
 // path передается на каждый компонент чтобы при редактировании значений можно было знать какой элемент менять в redux
 // для вложенного компонента  path будет примерно как [0, 2, 1]
 export function StepsComponent(p: {steps: Steps, path: number[]}) {

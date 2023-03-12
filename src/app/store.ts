@@ -1,16 +1,16 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
-import projectsReducer from '../features/projects/projectsSlice';
-import projectReducer, {setWait} from '../features/project/projectSlice';
+import projectsReducer from '../features/pages/pagessSlice';
+import projectReducer, {setWait} from '../features/page/pageSlice';
 import terminalReducer, {clear, puts} from '../features/terminal/terminalSlice';
 import loginReducer from '../features/login/loginSlice';
-import newProjectReducer from '../features/newproject/newprojectsSlice';
+import newProjectReducer from '../features/newpage/newpageSlice';
 
 let ws: WebSocket | null = null
 
 export const store = configureStore({
     reducer: {
-        projects: projectsReducer,
-        project: projectReducer,
+        pages: projectsReducer,
+        page: projectReducer,
         terminal: terminalReducer,
         login: loginReducer,
         newProject: newProjectReducer
@@ -22,8 +22,8 @@ export const store = configureStore({
 });
 
 store.subscribe(() => {
-    if (ws !== store.getState().project.ws) {
-        ws = store.getState().project.ws
+    if (ws !== store.getState().page.ws) {
+        ws = store.getState().page.ws
         if (ws == null) {
             return
         }

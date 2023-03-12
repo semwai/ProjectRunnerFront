@@ -1,8 +1,8 @@
 import {Input} from "../../../app/interfaces";
 import {useAppDispatch} from "../../../app/hooks";
 import React, {ChangeEvent} from "react";
-import {updateUI} from "../newprojectsSlice";
-import styles from "../NewProjects.module.css";
+import {updateUI} from "../newpageSlice";
+import styles from "../NewPage.module.css";
 
 export function MainInputEditor(props: { input: Input, id: number }) {
     const dispatch = useAppDispatch();

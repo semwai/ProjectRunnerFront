@@ -1,5 +1,5 @@
 import {useAppSelector} from "../../../app/hooks";
-import {selectProject} from "../projectSlice";
+import {selectPage} from "../pageSlice";
 import {Input} from "../../../app/interfaces";
 import {CodeEditor} from "./CodeEditor";
 import styles from './Inputs.module.css'
@@ -11,7 +11,7 @@ export interface prop {
 }
 
 export default function Inputs(props: prop) {
-    const project = useAppSelector(selectProject)
+    const project = useAppSelector(selectPage)
 
     return <div>
         {project.value?.ui.data.map((e, key) => <div className={styles.input} key={key}>
