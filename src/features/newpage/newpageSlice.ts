@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-import {Input, Page, Steps} from "../../app/interfaces";
+import {File, Input, Page, Print, Run, Step, Steps} from "../../app/interfaces";
 
 
 const initialState: Page = {
@@ -74,14 +74,27 @@ export const newProjectSlice = createSlice({
             let path = [...action.payload.parent_path]
             while (path.length > 0) {
                 root = root.data[path[0]] as Steps
-                console.log(path.shift())
+                path.shift()
+                // console.log(p)
             }
             root.data = [...root.data, {type: "Print", text: "Hello"}]
+        },
+        updateCMD: (state, action: PayloadAction<{path: number[], cmd: Step | File | Steps | Run | Print}>) => {
+            let root = state.scenario
+            let path = [...action.payload.path]
+            // ищем родительский элемент
+            while (path.length > 1) {
+                root = root.data[path[0]] as Steps
+                path.shift()
+            }
+            const id = path[0]
+            root.data[id] = action.payload.cmd
+            //root.data = [...root.data, action.payload.cmd]
         }
     },
 });
 
-export const { setName, setDescription, setShortDescription, setVersion, addUI, removeUI, updateUI, addCMD } = newProjectSlice.actions;
+export const { setName, setDescription, setShortDescription, setVersion, addUI, removeUI, updateUI, addCMD, updateCMD } = newProjectSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

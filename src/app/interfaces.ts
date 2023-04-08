@@ -20,7 +20,7 @@ export interface Step {
 }
 export interface File extends Step{
     name: string
-    data: string
+    data?: string
 }
 
 export interface Print extends Step{
@@ -98,6 +98,7 @@ export interface Entry {
 }
 
 export interface Content {
+    description: string
     data: (Entry | Content)[]
 }
 
