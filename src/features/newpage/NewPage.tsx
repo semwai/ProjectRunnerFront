@@ -12,7 +12,7 @@ export function NewPage() {
     const np = useAppSelector(selectNewProject);
 
     return <div>
-        <h1>New Project</h1>
+        <h1>New Page</h1>
         <p><span className={styles.label}>name</span><input value={np.name} onChange={e => dispatch(setName(e.target.value))}/></p>
         <p><span className={styles.label}>version</span><input value={np.version} onChange={e => dispatch(setVersion(e.target.value))}/></p>
         <p><span className={styles.label}>short description</span><input value={np.short_description} onChange={e => dispatch(setShortDescription(e.target.value))}/></p>
@@ -44,6 +44,6 @@ export function NewPage() {
     </div>
 }
 
-export function UpdateProject(props: {id: Number}) {
+export function UpdatePage(props: {id: Number}) {
     return <div>Update</div>
 }

@@ -11,26 +11,27 @@ function ProjectComponent(props: TinyPage) {
     const login = useAppSelector(selectLogin);
     //const ex = props.example.length > 25 ? props.example.substring(0, 25) + '...' : props.example
     return (
-    <div className={styles.project} >
-        <div className={styles.name}>
-            <Link to={"/page/" + props.id} className={styles.link}>{props.name}</Link> {login.access === "admin"?<EditProjectLink id={props.id}/>:<></>}
-        </div>
-        <div className={styles.description}>
-            {props.short_description}
-        </div>
-    </div>)
+        <div className={styles.project}>
+            <div className={styles.name}>
+                <Link to={"/page/" + props.id} className={styles.link}>{props.name}</Link> {login.access === "admin" ?
+                <EditPageLink id={props.id}/> : <></>}
+            </div>
+            <div className={styles.description}>
+                {props.short_description}
+            </div>
+        </div>)
 }
 
-function EditProjectLink(props: {id: number}) {
+function EditPageLink(props: { id: number }) {
     return (
-            <Link className={styles.edit_link} to={`/project/${props.id}/edit`}>Изменить</Link>
+        <Link className={styles.edit_link} to={`/page/${props.id}/edit`}>Изменить</Link>
     )
 }
 
-function NewProjectLink() {
+function NewPageLink() {
     return (
         <div className={styles.project}>
-            <Link className={styles.new_link} to="/project/new">Добавить проект</Link>
+            <Link className={styles.new_link} to="/page/new">Добавить страницу</Link>
         </div>
     )
 }
@@ -47,8 +48,9 @@ export function Pages() {
             break
         case 'idle':
             content = <>
+                <h1>Добавление страниц</h1>
                 {projects.value.map(p => <ProjectComponent {...p} key={p.id}/>)}
-                {login.access === "admin"?<NewProjectLink/>:<></>}
+                {login.access === "admin" ? <NewPageLink/> : <></>}
             </>
             break
         case 'failed':

@@ -37,7 +37,7 @@ export const projectsSlice = createSlice({
 });
 
 export const getProjects = createAsyncThunk(
-    'pages/fetchPages',
+    'projects/fetchProjects',
     async () => {
         // The value we return becomes the `fulfilled` action payload
         return await fetchProjects();

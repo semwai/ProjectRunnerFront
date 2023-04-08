@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import {Header} from "./header/Header";
-import {NewPage, UpdateProject} from "../newpage/NewPage";
+import {NewPage, UpdatePage} from "../newpage/NewPage";
 import React from "react";
 import './Default.css';
 
@@ -10,7 +10,7 @@ export function ComponentNewPage() {
     if (id !== undefined)
         return <div className="App">
             <Header/>
-            <UpdateProject id={Number(id)}/>
+            <UpdatePage id={Number(id)}/>
         </div>
     else
         return <div className="App">

@@ -4,7 +4,7 @@ import {selectProjects,} from './projectsSlice';
 import styles from './Projects.module.css'
 import {Link} from "react-router-dom";
 import {Spinner} from "../spinner/Spinner";
-import {Project, TinyPage} from "../../app/interfaces";
+import {Project} from "../../app/interfaces";
 import {selectLogin} from "../login/loginSlice";
 
 
@@ -18,6 +18,7 @@ function ProjectComponent(props: Project) {
         </div>
         <div className={styles.description}>
             {props.description}
+            {login.access === "admin"?<><br/><a href={`${process.env.REACT_APP_BACKEND_HOST}/api/project/${props.id}/json`}>Скачать</a></>:<></>}
         </div>
     </div>)
 }
@@ -40,15 +41,15 @@ function NewProjectLink() {
 export function Projects() {
     const projects = useAppSelector(selectProjects);
     const login = useAppSelector(selectLogin);
-    let content
 
+    let content
     switch (projects.status) {
         case 'loading':
             content = <div className={styles.spin}><Spinner/></div>
             break
         case 'idle':
             content = <>
-                {projects.value?.map(p => <ProjectComponent {...p} key={p.id}/>)}
+                {projects.value.map(p => <ProjectComponent {...p} key={p.id}/>)}
                 {login.access === "admin"?<NewProjectLink/>:<></>}
             </>
             break
