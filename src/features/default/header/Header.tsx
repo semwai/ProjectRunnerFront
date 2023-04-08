@@ -9,7 +9,9 @@ export function Header() {
     const login = useAppSelector(selectLogin);
 
     return (<div className={styles.container}>
-        <Link className={[styles.link, styles.left].join(' ')} to="/">CodeRunner</Link>
+        {login.access === "admin"?
+            <Link className={[styles.link, styles.left].join(' ')} to="/pages">Страницы</Link>:
+            <Link className={[styles.link, styles.left].join(' ')} to="/">CodeRunner</Link>}
         <Link className={styles.link} to="/projects">Проекты</Link>
         <Link className={[styles.link, styles.right].join(' ')} to="/login">{login.auth?"Аккаунт":"Войти"}</Link>
     </div>)
