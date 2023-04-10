@@ -1,6 +1,7 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
 import {File, Input, Page, Print, Run, Step, Steps} from "../../app/interfaces";
+import {fetchAddPage} from "./newpageAPI";
 
 
 const initialState: Page = {
@@ -13,14 +14,7 @@ const initialState: Page = {
     version: "",
     scenario: {
         type: "Steps",
-        data: [{
-            type: "Run",
-            command: "python main.py",
-            stdin: true,
-            stdout: true,
-            echo: false,
-            exitCode: true
-        },{
+        data: [/*{
             type: "Print",
             text: "Hello world"
         },{
@@ -36,13 +30,13 @@ const initialState: Page = {
                 type: "Print",
                 text: "Hello world"
             }]
-        }]
+        }*/]
     }
 };
 
 
 export const newProjectSlice = createSlice({
-    name: 'newProject',
+    name: 'newPage',
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
@@ -79,27 +73,62 @@ export const newProjectSlice = createSlice({
             }
             root.data = [...root.data, {type: "Print", text: "Hello"}]
         },
+        removeCMD: (state, action: PayloadAction<number[]>) => {
+            let root = state.scenario
+            let path = [...action.payload]
+            console.log(path)
+            while (path.length > 1) {
+                root = root.data[path[0]] as Steps
+                path.shift()
+            }
+            console.log(path)
+            root.data.splice(path[0], 1)
+        },
         updateCMD: (state, action: PayloadAction<{path: number[], cmd: Step | File | Steps | Run | Print}>) => {
             let root = state.scenario
             let path = [...action.payload.path]
             // ищем родительский элемент
+            console.log(path)
             while (path.length > 1) {
                 root = root.data[path[0]] as Steps
                 path.shift()
             }
             const id = path[0]
+            if (typeof id == 'undefined') {
+                return
+            }
             root.data[id] = action.payload.cmd
             //root.data = [...root.data, action.payload.cmd]
         }
     },
+    extraReducers: (builder) => {
+        builder
+            .addCase(postPage.pending, (state) => {
+                console.log('loading post project');
+            })
+            .addCase(postPage.fulfilled, (state, action) => {
+                console.log('idle post project');
+            })
+            .addCase(postPage.rejected, (state) => {
+                console.log('failed post project');
+            });
+    }
 });
 
-export const { setName, setDescription, setShortDescription, setVersion, addUI, removeUI, updateUI, addCMD, updateCMD } = newProjectSlice.actions;
+export const postPage = createAsyncThunk(
+    'newPage/postPage',
+    async (page: Page) => {
+        // The value we return becomes the `fulfilled` action payload
+        return await fetchAddPage(page);
+    }
+);
+
+export const { setName, setDescription, setShortDescription, setVersion, addUI, removeUI, updateUI, addCMD, updateCMD, removeCMD } = newProjectSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const selectNewProject = (state: RootState) => state.newPage;
+export const selectNewPage = (state: RootState) => state.newPage;
 
 
 export default newProjectSlice.reducer;

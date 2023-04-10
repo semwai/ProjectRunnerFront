@@ -1,7 +1,7 @@
 import React from 'react';
 import {Run} from "../../../../app/interfaces";
 import {TypeSelector} from "./Step";
-import {updateCMD} from "../../newpageSlice";
+import {removeCMD, updateCMD} from "../../newpageSlice";
 import {useAppDispatch} from "../../../../app/hooks";
 
 export function RunComponent(props: {c: Run, path: number[]}) {
@@ -33,6 +33,7 @@ export function RunComponent(props: {c: Run, path: number[]}) {
     }
 
     return <div>
+        <button onClick={() => dispatch(removeCMD(props.path))}>X</button><br/>
         Type: <TypeSelector value={props.c.type} path={props.path} data={props.c}/><br/>
         Command: <input type={"text"} value={props.c.command} onChange={updateCommand}/><br/>
         echo: <input type={"checkbox"} checked={props.c.echo} title="Печатать Command перед выполнением" onChange={updateEcho}/><br/>

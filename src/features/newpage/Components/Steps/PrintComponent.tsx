@@ -2,7 +2,7 @@ import React from 'react';
 import {Print} from "../../../../app/interfaces";
 import {TypeSelector} from "./Step";
 import {useAppDispatch} from "../../../../app/hooks";
-import {updateCMD} from "../../newpageSlice";
+import {removeCMD, updateCMD} from "../../newpageSlice";
 
 export function PrintComponent(props: { c: Print, path: number[] }) {
     const dispatch = useAppDispatch();
@@ -18,6 +18,7 @@ export function PrintComponent(props: { c: Print, path: number[] }) {
     }
 
     return <div>
+        <button onClick={() => dispatch(removeCMD(props.path))}>X</button><br/>
         Type: <TypeSelector value={props.c.type} path={props.path} data={props.c}/><br/>
         Text: <input type={"text"} value={props.c.text} onChange={updateText}/><br/>
         File: <select value={props.c.file} onChange={updateFile}>
