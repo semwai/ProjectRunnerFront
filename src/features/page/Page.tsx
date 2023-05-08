@@ -7,6 +7,7 @@ import {Terminal} from "../terminal/Terminal";
 import {puts} from "../terminal/terminalSlice";
 import Inputs from "./inputs/Inputs";
 import ReactMarkdown from "react-markdown";
+import 'primeicons/primeicons.css';
 
 
 function PageComponent() {
@@ -42,21 +43,21 @@ function PageComponent() {
         <div className={styles.containerItem}>
             <div className={styles.buttons}>
                 <div className={styles.send}>
-                    <button onClick={send} className={styles.btn} disabled={!stdin.length}>send</button>
+                    <button onClick={send} className={styles.btn} disabled={!stdin.length}>отправить в процесс <i className="pi pi-send"></i></button>
                 </div>
                 <div>
-                    <button onClick={restartProject} className={styles.btn}>restart</button>
+                    <button onClick={restartProject} className={styles.btn}>перезапустить <i className="pi pi-refresh"></i></button>
                 </div>
             </div>
             <div className={styles.areaBox}>
-                <textarea className={styles.input} placeholder='send to process:' value={stdin} onChange={e => setStdin(e.target.value)}/>
+                <textarea className={styles.input} placeholder='Отправить в процесс' value={stdin} onChange={e => setStdin(e.target.value)}/>
             </div>
         </div>
         <div className={styles.containerItem}><Terminal/></div>
     </>)
     // для незапущенного проекта вывожу кнопку запуска
     const not_started = (<div className={[styles.container, styles.containerItem].join(' ')}>
-        <button onClick={startProject}>start project</button>
+        <button onClick={startProject}>Запустить <i className="pi pi-play"></i></button>
     </div>)
 
     return <>
