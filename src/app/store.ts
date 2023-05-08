@@ -1,10 +1,11 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
-import pagesReducer from '../features/pages/pagesSlice';
+import pagesReducer, {getPages} from '../features/pages/pagesSlice';
 import pageReducer, {setWait} from '../features/page/pageSlice';
 import terminalReducer, {clear, puts} from '../features/terminal/terminalSlice';
 import loginReducer from '../features/login/loginSlice';
 import newPageReducer from '../features/newpage/newpageSlice';
 import projectsReducer from '../features/projects/projectsSlice';
+import newProjectReducer from '../features/newproject/newprojectSlice';
 
 let ws: WebSocket | null = null
 
@@ -16,6 +17,7 @@ export const store = configureStore({
         login: loginReducer,
         newPage: newPageReducer,
         projects: projectsReducer,
+        newProject: newProjectReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
@@ -24,6 +26,7 @@ export const store = configureStore({
 });
 
 store.subscribe(() => {
+    const state = store.getState()
     if (ws !== store.getState().page.ws) {
         ws = store.getState().page.ws
         if (ws == null) {
@@ -51,6 +54,10 @@ store.subscribe(() => {
                 store.dispatch(puts({type:'ExitCode', text:msg.ExitCode}))
             }
         }
+    }
+
+    if (state.pages.need_update) {
+        store.dispatch(getPages())
     }
     //localStorage['store'] = JSON.stringify(store.getState())
 })

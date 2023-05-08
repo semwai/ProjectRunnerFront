@@ -1,7 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {RootState} from '../../app/store';
+import {RootState, store} from '../../app/store';
 import {File, Input, Page, Print, Run, Step, Steps} from "../../app/interfaces";
 import {fetchAddPage} from "./newpageAPI";
+import {getPages} from "../pages/pagesSlice";
 
 
 const initialState: Page = {
@@ -102,15 +103,18 @@ export const newProjectSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+
         builder
             .addCase(postPage.pending, (state) => {
-                console.log('loading post project');
+                console.log('loading post project')
             })
             .addCase(postPage.fulfilled, (state, action) => {
-                console.log('idle post project');
+                console.log('idle post project')
             })
-            .addCase(postPage.rejected, (state) => {
-                console.log('failed post project');
+            .addCase(postPage.rejected, (state, msg) => {
+                const err = JSON.parse(msg.error.message || "{detail: ''}").detail
+                const pretty_err = JSON.stringify(err, null, 2)
+                alert(pretty_err)
             });
     }
 });

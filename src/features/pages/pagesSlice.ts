@@ -1,12 +1,13 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-import {fetchPages} from "./pagesAPI";
+import {fetchDeletePage, fetchPages} from "./pagesAPI";
 import {Pages, TinyPage} from "../../app/interfaces";
 
 
 const initialState: Pages = {
     value: [],
-    status: 'idle'
+    status: 'idle',
+    need_update: false,
 };
 
 
@@ -17,6 +18,9 @@ export const pagesSlice = createSlice({
     reducers: {
         addPage: (state, action: PayloadAction<TinyPage>) => {
             state.value = [...state.value, action.payload]
+        },
+        setNeedUpdate: (state, action: PayloadAction<boolean>) => {
+            state.need_update = action.payload
         }
     },
     // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -24,15 +28,28 @@ export const pagesSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getPages.pending, (state) => {
-                state.status = 'loading';
+                state.status = 'loading'
             })
             .addCase(getPages.fulfilled, (state, action) => {
-                state.status = 'idle';
-                state.value = action.payload.data;
+                state.status = 'idle'
+                state.need_update = false
+                state.value = action.payload.data
             })
-            .addCase(getPages.rejected, (state) => {
-                state.status = 'failed';
-            });
+            .addCase(getPages.rejected, (state, action) => {
+                state.status = 'failed'
+            })
+            .addCase(deletePage.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(deletePage.fulfilled, (state, action) => {
+                state.status = 'idle'
+                //store.dispatch(getPages())
+                state.need_update = true
+            })
+            .addCase(deletePage.rejected, (state) => {
+                state.status = 'failed'
+            })
+        ;
     }
 });
 
@@ -44,7 +61,15 @@ export const getPages = createAsyncThunk(
     }
 );
 
-export const { addPage } = pagesSlice.actions;
+export const deletePage = createAsyncThunk(
+    'pages/fetchDeletePage',
+    async (id: Number) => {
+        return await fetchDeletePage(id);
+    }
+);
+
+
+export const { addPage, setNeedUpdate } = pagesSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

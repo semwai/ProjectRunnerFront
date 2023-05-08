@@ -41,10 +41,10 @@ export interface Steps extends Step{
 }
 
 export interface Page {
-    id: number,
-    name: string,
-    description: string,
-    short_description: string,
+    id: number
+    name: string
+    description: string
+    short_description: string
     version: string
     visible: boolean
     ui: UI
@@ -83,6 +83,7 @@ export interface PageStorage {
 export interface Pages {
     value: TinyPage[]
     status: 'loading' | 'idle' | 'failed'
+    need_update: boolean
 }
 
 export interface LoginData {
@@ -103,9 +104,10 @@ export interface Content {
 }
 
 export interface Project {
-    id: number,
-    name: string,
-    description: string,
+    id: number
+    name: string
+    description: string
+    public: boolean
     content: Content
 }
 
