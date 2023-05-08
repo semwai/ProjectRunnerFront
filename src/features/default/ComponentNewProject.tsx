@@ -4,18 +4,21 @@ import {Header} from "./header/Header";
 import {ComponentLogin} from "./ComponentLogin";
 import React from "react";
 import './Default.css';
-import {Projects} from "../projects/Projects";
+import {NewProject} from "../newproject/NewProject";
 
-export function ComponentProjects() {
+export function ComponentNewProject() {
     const login = useAppSelector(selectLogin);
 
     if (!login.auth) {
         return <ComponentLogin/>
     }
+    if (login.access !== "admin") {
+        return <p>403</p>
+    }
     return (
         <div className="App">
             <Header/>
-            <Projects/>
+            <NewProject/>
         </div>
     );
 }

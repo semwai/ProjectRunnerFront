@@ -9,7 +9,7 @@ import {Component404} from "../default/Component404";
 import ReactMarkdown from "react-markdown";
 
 
-function ProjectComponent(props: Project) {
+export function ProjectComponent(props: Project) {
     return (
     <div className={styles.project} >
         <div>

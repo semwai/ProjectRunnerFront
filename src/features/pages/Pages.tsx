@@ -1,6 +1,6 @@
 import React from 'react';
-import {useAppSelector} from '../../app/hooks';
-import {selectPages,} from './pagesSlice';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {deletePage, selectPages,} from './pagesSlice';
 import styles from './Pages.module.css'
 import {Link} from "react-router-dom";
 import {Spinner} from "../spinner/Spinner";
@@ -14,7 +14,7 @@ function ProjectComponent(props: TinyPage) {
         <div className={styles.project}>
             <div className={styles.name}>
                 <Link to={"/page/" + props.id} className={styles.link}>{props.name}</Link> {login.access === "admin" ?
-                <EditPageLink id={props.id}/> : <></>}
+                <><EditPageLink id={props.id}/> <br/> <RemovePageButton id={props.id}/></>: <></>}
             </div>
             <div className={styles.description}>
                 {props.short_description}
@@ -25,6 +25,20 @@ function ProjectComponent(props: TinyPage) {
 function EditPageLink(props: { id: number }) {
     return (
         <Link className={styles.edit_link} to={`/page/${props.id}/edit`}>Изменить</Link>
+    )
+}
+
+function RemovePageButton(props: { id: number }) {
+    const dispatch = useAppDispatch();
+
+    const remove = () => {
+        const ok = window.confirm(`Действительно хотите удалить страницу ${props.id}`)
+        if (ok) {
+            dispatch(deletePage(props.id))
+        }
+    }
+    return (
+        <button className={styles.edit_link} onClick={remove}>Удалить</button>
     )
 }
 

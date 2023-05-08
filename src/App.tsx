@@ -10,6 +10,7 @@ import {ComponentPage} from "./features/default/ComponentPage";
 import {ComponentLogin} from "./features/default/ComponentLogin";
 import {ComponentProjects} from "./features/default/ComponentProjects";
 import {ComponentProject} from "./features/default/ComponentProject";
+import {ComponentNewProject} from "./features/default/ComponentNewProject";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                         <Route path="/page/new" element={<ComponentNewPage/>}></Route>
                         <Route path="/projects" element={<ComponentProjects/>}></Route>
                         <Route path="/project/:id" element={<ComponentProject/>}></Route>
+                        <Route path="/project/new" element={<ComponentNewProject/>}></Route>
                         <Route path="*" element={<Component404/>}></Route>
                     </Routes>
                 </div>
