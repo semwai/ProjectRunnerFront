@@ -1,8 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {RootState, store} from '../../app/store';
+import {RootState} from '../../app/store';
 import {File, Input, Page, Print, Run, Step, Steps} from "../../app/interfaces";
 import {fetchAddPage} from "./newpageAPI";
-import {getPages} from "../pages/pagesSlice";
 
 
 const initialState: Page = {
@@ -105,14 +104,14 @@ export const newProjectSlice = createSlice({
     extraReducers: (builder) => {
 
         builder
-            .addCase(postPage.pending, (state) => {
+            .addCase(postPage.pending, () => {
                 console.log('loading post project')
             })
-            .addCase(postPage.fulfilled, (state, action) => {
+            .addCase(postPage.fulfilled, () => {
                 console.log('idle post project')
             })
             .addCase(postPage.rejected, (state, msg) => {
-                const err = JSON.parse(msg.error.message || "{detail: ''}").detail
+                const err = JSON.parse(msg.error.message || "{}")
                 const pretty_err = JSON.stringify(err, null, 2)
                 alert(pretty_err)
             });
@@ -123,16 +122,16 @@ export const postPage = createAsyncThunk(
     'newPage/postPage',
     async (page: Page) => {
         // The value we return becomes the `fulfilled` action payload
-        return await fetchAddPage(page);
+        return await fetchAddPage(page)
     }
 );
 
-export const { setName, setDescription, setShortDescription, setVersion, addUI, removeUI, updateUI, addCMD, updateCMD, removeCMD } = newProjectSlice.actions;
+export const { setName, setDescription, setShortDescription, setVersion, addUI, removeUI, updateUI, addCMD, updateCMD, removeCMD } = newProjectSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const selectNewPage = (state: RootState) => state.newPage;
+export const selectNewPage = (state: RootState) => state.newPage
 
 
-export default newProjectSlice.reducer;
+export default newProjectSlice.reducer
