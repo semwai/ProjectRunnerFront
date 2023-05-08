@@ -49,7 +49,7 @@ export function Projects() {
             break
         case 'idle':
             content = <>
-                {projects.value.map(p => <ProjectComponent {...p} key={p.id}/>)}
+                {[...projects.value].sort((a, b) => a.id > b.id ? 1 : -1).map(p => <ProjectComponent {...p} key={p.id}/>)}
                 {login.access === "admin"?<NewProjectLink/>:<></>}
             </>
             break
