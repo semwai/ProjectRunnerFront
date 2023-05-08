@@ -11,6 +11,7 @@ import {ComponentLogin} from "./features/default/ComponentLogin";
 import {ComponentProjects} from "./features/default/ComponentProjects";
 import {ComponentProject} from "./features/default/ComponentProject";
 import {ComponentNewProject} from "./features/default/ComponentNewProject";
+import {ComponentEditProject} from "./features/default/ComponentEditProject";
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                         <Route path="/projects" element={<ComponentProjects/>}></Route>
                         <Route path="/project/:id" element={<ComponentProject/>}></Route>
                         <Route path="/project/new" element={<ComponentNewProject/>}></Route>
+                        <Route path="/project/:id/edit" element={<ComponentEditProject/>}></Route>
                         <Route path="*" element={<Component404/>}></Route>
                     </Routes>
                 </div>

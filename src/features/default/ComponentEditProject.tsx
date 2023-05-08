@@ -5,19 +5,26 @@ import {ComponentLogin} from "./ComponentLogin";
 import React, {useEffect} from "react";
 import './Default.css';
 import {NewProject} from "../newproject/NewProject";
-import {initialNewProjectState, selectNewProject, setNewProjectValue} from "../newproject/newprojectSlice";
+import {useParams} from "react-router-dom";
+import {getPage} from "../page/pageSlice";
+import {setNewProjectValue} from "../newproject/newprojectSlice";
+import {selectProjects} from "../projects/projectsSlice";
 
-export function ComponentNewProject() {
+export function ComponentEditProject() {
     const login = useAppSelector(selectLogin);
-    const newProject = useAppSelector(selectNewProject);
+    const projects = useAppSelector(selectProjects);
     const dispatch = useAppDispatch();
+    const {id} = useParams()
 
     useEffect(() => {
         // fetch data
-        if (login.auth && newProject.id > 0) {
-            dispatch(setNewProjectValue(initialNewProjectState))
+        if (typeof id === "string" && login.auth) {
+            const current = projects.value.filter(p => p.id === Number(id))[0]
+            dispatch(setNewProjectValue(current))
+            console.log(id)
         }
-    }, [login.auth]);
+    }, [id, login.auth]);
+
     if (!login.auth) {
         return <ComponentLogin/>
     }

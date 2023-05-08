@@ -4,7 +4,7 @@ import {Content, Entry, Project} from "../../app/interfaces";
 import {fetchAddProject} from "./newProjectApi";
 
 
-const initialState: Project = {
+export const initialNewProjectState: Project = {
     id: 0,
     name: "новый проект",
     description: 'описание',
@@ -18,9 +18,16 @@ const initialState: Project = {
 
 export const newProjectSlice = createSlice({
     name: 'newProject',
-    initialState,
+    initialState: initialNewProjectState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
+        setNewProjectValue: (state, action: PayloadAction<Project>) => {
+            state.id = action.payload.id
+            state.name = action.payload.name
+            state.public = action.payload.public
+            state.content = action.payload.content
+            state.description = action.payload.description
+        },
         setProjectName: (state, action: PayloadAction<string>) => {
             state.name = action.payload
         },
@@ -115,7 +122,7 @@ export const postProject = createAsyncThunk(
     }
 );
 
-export const { setProjectName, setProjectDescription, setProjectPublic, addPage, setContentDescription, setEntryDescription, removeItem} = newProjectSlice.actions;
+export const { setNewProjectValue, setProjectName, setProjectDescription, setProjectPublic, addPage, setContentDescription, setEntryDescription, removeItem} = newProjectSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
