@@ -43,7 +43,7 @@ export function UIElementDecoder(input: Input, props: prop) {
             header = <div title={input.description}>{input.name}:</div>
             break
         case "env":
-            header = <div title={input.description}>{input.name}</div>
+            header = <div title={input.description}>env {input.name}=</div>
             break
     }
 
