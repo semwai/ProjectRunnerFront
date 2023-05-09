@@ -14,6 +14,10 @@ export async function fetchAddPage(body: Page): Promise<Page> {
             method: 'POST',
             body: JSON.stringify(body)
         })
+    // pydantic validation error, может быть лучше что-то придумать можно для лучшего вывода ошибки
+    if (res.status === 422) {
+        throw new Error(await res.text())
+    }
     if (res.status !== 200)
         throw new Error(await res.text())
     return res.json()

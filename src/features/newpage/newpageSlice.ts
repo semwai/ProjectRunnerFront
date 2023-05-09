@@ -4,11 +4,12 @@ import {File, Input, Page, Print, Run, Step, Steps} from "../../app/interfaces";
 import {fetchAddPage} from "./newpageAPI";
 
 
-const initialState: Page = {
+export const initialNewPageState: Page = {
     visible: false,
     description: "",
     id: 0,
     name: "",
+    container: "",
     short_description: "",
     ui: {data: [{name: "123", type: "code", language: "go", default: "", destination: "file", description: "", values: [{title: 'title 1', value: '1'}]}]},
     version: "",
@@ -37,11 +38,24 @@ const initialState: Page = {
 
 export const newProjectSlice = createSlice({
     name: 'newPage',
-    initialState,
+    initialState: initialNewPageState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
+        setNewPageValue: (state, action: PayloadAction<Page>) => {
+            state.name = action.payload.name
+            state.container = action.payload.container
+            state.description = action.payload.description
+            state.short_description = action.payload.short_description
+            state.version = action.payload.version
+            state.id = action.payload.id
+            state.ui = {...action.payload.ui}
+            state.scenario  = {...action.payload.scenario}
+        },
         setName: (state, action: PayloadAction<string>) => {
             state.name = action.payload
+        },
+        setContainer: (state, action: PayloadAction<string>) => {
+            state.container = action.payload
         },
         setDescription: (state, action: PayloadAction<string>) => {
             state.description = action.payload
@@ -108,6 +122,7 @@ export const newProjectSlice = createSlice({
                 console.log('loading post project')
             })
             .addCase(postPage.fulfilled, () => {
+                alert('Успешно')
                 console.log('idle post project')
             })
             .addCase(postPage.rejected, (state, msg) => {
@@ -126,7 +141,7 @@ export const postPage = createAsyncThunk(
     }
 );
 
-export const { setName, setDescription, setShortDescription, setVersion, addUI, removeUI, updateUI, addCMD, updateCMD, removeCMD } = newProjectSlice.actions
+export const { setNewPageValue, setName, setContainer, setDescription, setShortDescription, setVersion, addUI, removeUI, updateUI, addCMD, updateCMD, removeCMD } = newProjectSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

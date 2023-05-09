@@ -12,6 +12,7 @@ import {ComponentProjects} from "./features/default/ComponentProjects";
 import {ComponentProject} from "./features/default/ComponentProject";
 import {ComponentNewProject} from "./features/default/ComponentNewProject";
 import {ComponentEditProject} from "./features/default/ComponentEditProject";
+import {ComponentEditPage} from "./features/default/ComponentEditPage";
 
 function App() {
     return (
@@ -23,7 +24,7 @@ function App() {
                         <Route path="/pages" element={<ComponentPages/>}></Route>
                         <Route path="/login" element={<ComponentLogin/>}></Route>
                         <Route path="/page/:id" element={<ComponentPage/>}></Route>
-                        <Route path="/page/:id/edit" element={<ComponentNewPage/>}></Route>
+                        <Route path="/page/:id/edit" element={<ComponentEditPage/>}></Route>
                         <Route path="/page/new" element={<ComponentNewPage/>}></Route>
                         <Route path="/projects" element={<ComponentProjects/>}></Route>
                         <Route path="/project/:id" element={<ComponentProject/>}></Route>

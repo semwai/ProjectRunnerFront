@@ -43,22 +43,13 @@ export interface Steps extends Step{
 export interface Page {
     id: number
     name: string
+    container: string
     description: string
     short_description: string
     version: string
     visible: boolean
     ui: UI
     scenario: Steps
-}
-
-export interface TinyPage {
-    // краткая информация о проекте
-    id: number,
-    name: string,
-    description: string,
-    short_description: string,
-    version: string
-    visible: boolean
 }
 
 export interface TerminalString {
@@ -81,7 +72,7 @@ export interface PageStorage {
 }
 
 export interface Pages {
-    value: TinyPage[]
+    value: Page[]
     status: 'loading' | 'idle' | 'failed'
     need_update: boolean
 }
