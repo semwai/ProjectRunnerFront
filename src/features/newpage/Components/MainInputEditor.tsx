@@ -52,7 +52,10 @@ export function MainInputEditor(props: { input: Input, id: number }) {
     }
     const addValue = () => {
         const ui = structuredClone(props.input)
-        ui.values = [...ui.values!, {title: '', value: ''}]
+        if (ui.values !== undefined)
+            ui.values = [...ui.values, {title: '', value: ''}]
+        else
+            ui.values = [{title: '', value: ''}]
         dispatch(updateUI({id: props.id, new: ui}))
     }
     const removeValue = (i: number) => {

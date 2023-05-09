@@ -59,7 +59,7 @@ export function UIElementDecoder(input: Input, props: prop) {
             body = <input type='number' value={value} onChange={onChange} defaultValue={input.default}/>
             break
         case "list":
-            body = <select className={styles.select} defaultValue={input.default} onChange={onChangeSelect} >
+            body = <select className={styles.select} value={value} onChange={onChangeSelect} >
                 {input?.values?.map((v, i) => <option key={i} value={v.value}>{v.title}</option>)}
             </select>
             break
