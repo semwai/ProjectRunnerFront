@@ -4,10 +4,10 @@ import {deletePage, selectPages,} from './pagesSlice';
 import styles from './Pages.module.css'
 import {Link} from "react-router-dom";
 import {Spinner} from "../spinner/Spinner";
-import {TinyPage} from "../../app/interfaces";
 import {selectLogin} from "../login/loginSlice";
+import {Page} from "../../app/interfaces";
 
-function ProjectComponent(props: TinyPage) {
+function ProjectComponent(props: Page) {
     const login = useAppSelector(selectLogin);
     //const ex = props.example.length > 25 ? props.example.substring(0, 25) + '...' : props.example
     return (
@@ -52,18 +52,18 @@ function NewPageLink() {
 
 
 export function Pages() {
-    const projects = useAppSelector(selectPages);
+    const pages = useAppSelector(selectPages);
     const login = useAppSelector(selectLogin);
     let content
 
-    switch (projects.status) {
+    switch (pages.status) {
         case 'loading':
             content = <div className={styles.spin}><Spinner/></div>
             break
         case 'idle':
             content = <>
                 <h1>Добавление страниц</h1>
-                {projects.value.map(p => <ProjectComponent {...p} key={p.id}/>)}
+                {[...pages.value].sort((a,b) => a.id > b.id ? 1:-1).map(p => <ProjectComponent {...p} key={p.id}/>)}
                 {login.access === "admin" ? <NewPageLink/> : <></>}
             </>
             break

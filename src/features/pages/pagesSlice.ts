@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
 import {fetchDeletePage, fetchPages} from "./pagesAPI";
-import {Pages, TinyPage} from "../../app/interfaces";
+import {Page, Pages} from "../../app/interfaces";
 
 
 const initialState: Pages = {
@@ -16,7 +16,7 @@ export const pagesSlice = createSlice({
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-        addPage: (state, action: PayloadAction<TinyPage>) => {
+        addPage: (state, action: PayloadAction<Page>) => {
             state.value = [...state.value, action.payload]
         },
         setNeedUpdate: (state, action: PayloadAction<boolean>) => {
@@ -35,13 +35,13 @@ export const pagesSlice = createSlice({
                 state.need_update = false
                 state.value = action.payload.data
             })
-            .addCase(getPages.rejected, (state, action) => {
+            .addCase(getPages.rejected, (state) => {
                 state.status = 'failed'
             })
             .addCase(deletePage.pending, (state) => {
                 state.status = 'loading'
             })
-            .addCase(deletePage.fulfilled, (state, action) => {
+            .addCase(deletePage.fulfilled, (state) => {
                 state.status = 'idle'
                 //store.dispatch(getPages())
                 state.need_update = true

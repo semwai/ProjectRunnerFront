@@ -1,7 +1,7 @@
-import {TinyPage} from "../../app/interfaces";
+import {Page} from "../../app/interfaces";
 
 interface FetchPages {
-    data: TinyPage[]
+    data: Page[]
 }
 
 export async function fetchPages(): Promise<FetchPages> {
