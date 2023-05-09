@@ -1,5 +1,5 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
-import pagesReducer, {getPages} from '../features/pages/pagesSlice';
+import pagesReducer from '../features/pages/pagesSlice';
 import pageReducer, {setWait} from '../features/page/pageSlice';
 import terminalReducer, {clear, puts} from '../features/terminal/terminalSlice';
 import loginReducer from '../features/login/loginSlice';
@@ -57,7 +57,7 @@ store.subscribe(() => {
     }
 
     if (state.pages.need_update) {
-        store.dispatch(getPages())
+        //store.dispatch(getPages())
     }
     //localStorage['store'] = JSON.stringify(store.getState())
 })
