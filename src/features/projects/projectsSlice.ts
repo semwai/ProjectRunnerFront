@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-import {fetchProjects} from "./projectsAPI";
+import {fetchDeleteProject, fetchProjects} from "./projectsAPI";
 import {Project, Projects} from "../../app/interfaces";
 
 
@@ -41,6 +41,13 @@ export const getProjects = createAsyncThunk(
     async () => {
         // The value we return becomes the `fulfilled` action payload
         return await fetchProjects();
+    }
+);
+
+export const deleteProject = createAsyncThunk(
+    'projects/fetchDeleteProject',
+    async (id: Number) => {
+        return await fetchDeleteProject(id);
     }
 );
 

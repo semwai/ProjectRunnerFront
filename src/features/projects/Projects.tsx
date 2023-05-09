@@ -1,6 +1,6 @@
 import React from 'react';
-import {useAppSelector} from '../../app/hooks';
-import {selectProjects,} from './projectsSlice';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {deleteProject, selectProjects,} from './projectsSlice';
 import styles from './Projects.module.css'
 import {Link} from "react-router-dom";
 import {Spinner} from "../spinner/Spinner";
@@ -19,8 +19,23 @@ function ProjectComponent(props: Project) {
         <div className={styles.description}>
             {props.description}
             {login.access === "admin"?<><br/><a href={`${process.env.REACT_APP_BACKEND_HOST}/api/project/${props.id}/json`}>Скачать</a></>:<></>}
+            {login.access === "admin" && <RemoveProjectButton id={props.id}/>}
         </div>
     </div>)
+}
+
+function RemoveProjectButton(props: { id: number }) {
+    const dispatch = useAppDispatch();
+
+    const remove = () => {
+        const ok = window.confirm(`Действительно хотите удалить проект ${props.id}?`)
+        if (ok) {
+            dispatch(deleteProject(props.id))
+        }
+    }
+    return (
+        <button className={styles.edit_link} onClick={remove}>Удалить</button>
+    )
 }
 
 function EditProjectLink(props: {id: number}) {
