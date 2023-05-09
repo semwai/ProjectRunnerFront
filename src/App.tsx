@@ -1,14 +1,18 @@
-import React, {useEffect} from 'react';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { GoogleLogin } from '@react-oauth/google';
+import React from 'react';
+import {GoogleOAuthProvider} from '@react-oauth/google';
 import './App.css';
-import {Projects} from "./features/projects/Projects";
-import {BrowserRouter as Router, Route, Routes, useParams} from "react-router-dom";
-import {Project} from "./features/project/Project";
-import {Header} from "./features/header/Header";
-import {useAppDispatch, useAppSelector} from "./app/hooks";
-import {getProject} from "./features/project/projectSlice";
-import {postLogin, selectLogin} from "./features/login/loginSlice";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {Component404} from "./features/default/Component404";
+import {ComponentIndex} from "./features/default/ComponentIndex";
+import {ComponentPages} from "./features/default/ComponentPages";
+import {ComponentNewPage} from "./features/default/ComponentNewPage";
+import {ComponentPage} from "./features/default/ComponentPage";
+import {ComponentLogin} from "./features/default/ComponentLogin";
+import {ComponentProjects} from "./features/default/ComponentProjects";
+import {ComponentProject} from "./features/default/ComponentProject";
+import {ComponentNewProject} from "./features/default/ComponentNewProject";
+import {ComponentEditProject} from "./features/default/ComponentEditProject";
+import {ComponentEditPage} from "./features/default/ComponentEditPage";
 
 function App() {
     return (
@@ -16,95 +20,21 @@ function App() {
             <Router>
                 <div>
                     <Routes>
-                        <Route path="/" element={<IndexPage/>}></Route>
-                        <Route path="/projects" element={<ProjectsPage/>}></Route>
-                        <Route path="/login" element={<LoginPage/>}></Route>
-                        <Route path="/project/:id" element={<ProjectPage/>}></Route>
+                        <Route path="/" element={<ComponentIndex/>}></Route>
+                        <Route path="/pages" element={<ComponentPages/>}></Route>
+                        <Route path="/login" element={<ComponentLogin/>}></Route>
+                        <Route path="/page/:id" element={<ComponentPage/>}></Route>
+                        <Route path="/page/:id/edit" element={<ComponentEditPage/>}></Route>
+                        <Route path="/page/new" element={<ComponentNewPage/>}></Route>
+                        <Route path="/projects" element={<ComponentProjects/>}></Route>
+                        <Route path="/project/:id" element={<ComponentProject/>}></Route>
+                        <Route path="/project/new" element={<ComponentNewProject/>}></Route>
+                        <Route path="/project/:id/edit" element={<ComponentEditProject/>}></Route>
+                        <Route path="*" element={<Component404/>}></Route>
                     </Routes>
                 </div>
             </Router>
         </GoogleOAuthProvider>
-    );
-}
-
-function IndexPage() {
-    return (
-        <div className="App">
-            <Header/>
-            Hello
-        </div>
-    );
-}
-
-function ProjectsPage() {
-    const login = useAppSelector(selectLogin);
-
-    if (!login.auth) {
-        return <LoginPage/>
-    }
-    return (
-        <div className="App">
-            <Header/>
-            <Projects/>
-        </div>
-    );
-}
-
-function ProjectPage() {
-    const {id} = useParams()
-    const dispatch = useAppDispatch();
-    const login = useAppSelector(selectLogin);
-
-
-
-    useEffect(() => {
-        // fetch data
-        if (typeof id === "string" && login.auth) {
-            dispatch(getProject(parseInt(id)))
-        }
-    },[dispatch, id, login.auth]);
-
-    if (!login.auth) {
-        return <LoginPage/>
-    }
-
-    return (
-        <div className="App">
-            <Header/>
-            <Project/>
-        </div>
-    );
-}
-
-function LoginPage() {
-    const dispatch = useAppDispatch();
-    const login = useAppSelector(selectLogin);
-
-    let content = <GoogleLogin
-        theme="filled_black"
-        width="300px"
-        onSuccess={credentialResponse => {
-            dispatch(postLogin(credentialResponse.credential!))
-        }}
-        onError={() => {
-            alert('Login Failed');
-        }}
-    />
-
-    if (login.auth) {
-        content = <div>Здравствуйте, {login.mail} <div>Выйти</div>
-        </div>
-
-    }
-
-    return (
-        <div className="App">
-            <Header/>
-            <br/>
-            <div className="App-header">
-                {content}
-            </div>
-        </div>
     );
 }
 

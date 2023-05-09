@@ -1,16 +1,23 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
-import projectsReducer from '../features/projects/projectsSlice';
-import projectReducer, {setWait} from '../features/project/projectSlice';
+import pagesReducer from '../features/pages/pagesSlice';
+import pageReducer, {setWait} from '../features/page/pageSlice';
 import terminalReducer, {clear, puts} from '../features/terminal/terminalSlice';
 import loginReducer from '../features/login/loginSlice';
+import newPageReducer from '../features/newpage/newpageSlice';
+import projectsReducer from '../features/projects/projectsSlice';
+import newProjectReducer from '../features/newproject/newprojectSlice';
+
 let ws: WebSocket | null = null
 
 export const store = configureStore({
     reducer: {
-        projects: projectsReducer,
-        project: projectReducer,
+        pages: pagesReducer,
+        page: pageReducer,
         terminal: terminalReducer,
-        login: loginReducer
+        login: loginReducer,
+        newPage: newPageReducer,
+        projects: projectsReducer,
+        newProject: newProjectReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
@@ -19,8 +26,9 @@ export const store = configureStore({
 });
 
 store.subscribe(() => {
-    if (ws !== store.getState().project.ws) {
-        ws = store.getState().project.ws
+    const state = store.getState()
+    if (ws !== store.getState().page.ws) {
+        ws = store.getState().page.ws
         if (ws == null) {
             return
         }
@@ -46,6 +54,10 @@ store.subscribe(() => {
                 store.dispatch(puts({type:'ExitCode', text:msg.ExitCode}))
             }
         }
+    }
+
+    if (state.pages.need_update) {
+        //store.dispatch(getPages())
     }
     //localStorage['store'] = JSON.stringify(store.getState())
 })

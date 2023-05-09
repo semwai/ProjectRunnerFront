@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-import {fetchProjects} from "./projectsAPI";
-import {Projects, TinyProject} from "../../app/interfaces";
+import {fetchDeleteProject, fetchProjects} from "./projectsAPI";
+import {Project, Projects} from "../../app/interfaces";
 
 
 const initialState: Projects = {
@@ -10,12 +10,12 @@ const initialState: Projects = {
 };
 
 
-export const projectSlice = createSlice({
+export const projectsSlice = createSlice({
     name: 'projects',
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-        addProject: (state, action: PayloadAction<TinyProject>) => {
+        addProject: (state, action: PayloadAction<Project>) => {
             state.value = [...state.value, action.payload]
         }
     },
@@ -28,7 +28,7 @@ export const projectSlice = createSlice({
             })
             .addCase(getProjects.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.value = action.payload.data;
+                state.value = action.payload;
             })
             .addCase(getProjects.rejected, (state) => {
                 state.status = 'failed';
@@ -44,7 +44,14 @@ export const getProjects = createAsyncThunk(
     }
 );
 
-export const { addProject } = projectSlice.actions;
+export const deleteProject = createAsyncThunk(
+    'projects/fetchDeleteProject',
+    async (id: Number) => {
+        return await fetchDeleteProject(id);
+    }
+);
+
+export const { addProject } = projectsSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -52,4 +59,4 @@ export const { addProject } = projectSlice.actions;
 export const selectProjects = (state: RootState) => state.projects;
 
 
-export default projectSlice.reducer;
+export default projectsSlice.reducer;
