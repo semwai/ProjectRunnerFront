@@ -39,7 +39,7 @@ function PageComponent() {
         dispatch(restart())
     }
     // запущенный проект, появляется терминал
-    const started = project.wait?<div className={styles.wait}><Spinner/></div>:(<>
+    const content = project.wait?<div style={{minHeight: '400px'}} className={styles.wait}><Spinner/></div>:(<>
         <div className={styles.containerItem}>
             <div className={styles.buttons}>
                 <div className={styles.send}>
@@ -56,7 +56,7 @@ function PageComponent() {
         <div className={styles.containerItem}><Terminal/></div>
     </>)
     // для незапущенного проекта вывожу кнопку запуска
-    const not_started = (<div className={[styles.container, styles.containerItem].join(' ')}>
+    const start_button = (<div style={{minHeight: '400px'}} className={[styles.container, styles.containerItem].join(' ')}>
         <button onClick={startProject}>Запустить <i className="pi pi-play"></i></button>
     </div>)
 
@@ -68,8 +68,7 @@ function PageComponent() {
         <div className={styles.containerItem}>
             <Inputs input={input} updateInput={updateInput}/>
         </div>
-        {project.start?started:not_started}
-
+        {project.start?content:start_button}
     </>
 }
 
