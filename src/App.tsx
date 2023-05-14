@@ -2,7 +2,6 @@ import React from 'react';
 import {GoogleOAuthProvider} from '@react-oauth/google';
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import {Component404} from "./features/default/Component404";
 import {ComponentIndex} from "./features/default/ComponentIndex";
 import {ComponentPages} from "./features/default/ComponentPages";
 import {ComponentNewPage} from "./features/default/ComponentNewPage";
@@ -13,6 +12,7 @@ import {ComponentProject} from "./features/default/ComponentProject";
 import {ComponentNewProject} from "./features/default/ComponentNewProject";
 import {ComponentEditProject} from "./features/default/ComponentEditProject";
 import {ComponentEditPage} from "./features/default/ComponentEditPage";
+import ComponentError from "./features/default/СomponentError";
 
 function App() {
     return (
@@ -30,7 +30,7 @@ function App() {
                         <Route path="/project/:id" element={<ComponentProject/>}></Route>
                         <Route path="/project/new" element={<ComponentNewProject/>}></Route>
                         <Route path="/project/:id/edit" element={<ComponentEditProject/>}></Route>
-                        <Route path="*" element={<Component404/>}></Route>
+                        <Route path="*" element={<ComponentError msg={'Неизветная страница, проверьте ссылку в браузере'}/>}></Route>
                     </Routes>
                 </div>
             </Router>

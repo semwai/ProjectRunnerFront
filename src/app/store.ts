@@ -50,8 +50,8 @@ store.subscribe(() => {
             if (msg.stderr) {
                 store.dispatch(puts({type:'stderr', text:msg.stderr}))
             }
-            if (msg.ExitCode) {
-                store.dispatch(puts({type:'ExitCode', text:msg.ExitCode}))
+            if (msg.exitCode) {
+                store.dispatch(puts({type:'ExitCode', text:msg.exitCode}))
             }
         }
     }

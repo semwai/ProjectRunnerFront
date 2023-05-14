@@ -1,5 +1,5 @@
 .App {
-//text-align: center;
+ //text-align: center;
 }
 
 .App-header {
@@ -7,7 +7,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-//justify-content: center;
     font-size: calc(10px + 2vmin);
 
+}
+
+.App-center {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
 }

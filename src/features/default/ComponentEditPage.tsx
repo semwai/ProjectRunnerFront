@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import {selectPages} from "../pages/pagesSlice";
 import {ComponentLogin} from "./ComponentLogin";
 import {setNewPageValue} from "../newpage/newpageSlice";
+import ComponentError from "./СomponentError";
 
 export function ComponentEditPage() {
     const login = useAppSelector(selectLogin);
@@ -19,7 +20,8 @@ export function ComponentEditPage() {
         // fetch data
         if (typeof id === "string" && login.auth) {
             const current = pages.value.filter(p => p.id === Number(id))[0]
-            dispatch(setNewPageValue(current))
+            if (current)
+                dispatch(setNewPageValue(current))
             console.log(id)
         }
     }, [id, login.auth, dispatch, pages.value]);
@@ -27,9 +29,11 @@ export function ComponentEditPage() {
     if (!login.auth) {
         return <ComponentLogin/>
     }
-    if (login.access !== "admin") {
-        return <p>403</p>
-    }
+    if (login.access !== "admin")
+        return <ComponentError msg={'Доступ запрещен'}/>
+
+    if (pages.value.filter(p => p.id === Number(id)).length === 0)
+        return <ComponentError msg={'Страница не найдена'}/>
 
     return <div className="App">
         <Header/>

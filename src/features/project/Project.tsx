@@ -5,8 +5,8 @@ import {Link} from "react-router-dom";
 import {Spinner} from "../spinner/Spinner";
 import {Content, Project} from "../../app/interfaces";
 import {selectProjects} from "../projects/projectsSlice";
-import {Component404} from "../default/Component404";
 import ReactMarkdown from "react-markdown";
+import ComponentError from "../default/СomponentError";
 
 
 export function ProjectComponent(props: Project) {
@@ -47,7 +47,7 @@ export function OneProject(props: {id: number}) {
         case 'idle':
             let project = projects?.value?.filter(p => p.id === props.id).at(0)
             if (project === undefined) {
-                return <Component404/>
+                return <ComponentError msg={'Проект не найден'}/>
             }
             content = <>
                 {<ProjectComponent {...project}/>}

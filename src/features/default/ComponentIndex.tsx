@@ -6,7 +6,7 @@ export function ComponentIndex() {
     return (
         <div className="App">
             <Header/>
-            Hello
+
         </div>
     );
 }

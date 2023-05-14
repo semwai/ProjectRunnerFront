@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {selectLogin} from "../login/loginSlice";
 import {initialNewPageState, selectNewPage, setNewPageValue} from "../newpage/newpageSlice";
 import {ComponentLogin} from "./ComponentLogin";
+import ComponentError from "./СomponentError";
 
 export function ComponentNewPage() {
     const login = useAppSelector(selectLogin)
@@ -22,9 +23,8 @@ export function ComponentNewPage() {
     if (!login.auth) {
         return <ComponentLogin/>
     }
-    if (login.access !== "admin") {
-        return <p>403</p>
-    }
+    if (login.access !== "admin")
+        return <ComponentError msg={'Доступ запрещен'}/>
 
     return <div className="App">
         <Header/>

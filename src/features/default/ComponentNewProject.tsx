@@ -6,6 +6,7 @@ import React, {useEffect} from "react";
 import './Default.css';
 import {NewProject} from "../newproject/NewProject";
 import {initialNewProjectState, selectNewProject, setNewProjectValue} from "../newproject/newprojectSlice";
+import ComponentError from "./СomponentError";
 
 export function ComponentNewProject() {
     const login = useAppSelector(selectLogin);
@@ -17,13 +18,13 @@ export function ComponentNewProject() {
         if (login.auth && newProject.id > 0) {
             dispatch(setNewProjectValue(initialNewProjectState))
         }
-    }, [login.auth]);
+    }, [dispatch, login.auth, newProject.id]);
     if (!login.auth) {
         return <ComponentLogin/>
     }
-    if (login.access !== "admin") {
-        return <p>403</p>
-    }
+    if (login.access !== "admin")
+        return <ComponentError msg={'Доступ запрещен'}/>
+
     return (
         <div className="App">
             <Header/>

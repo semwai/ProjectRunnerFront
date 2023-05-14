@@ -6,9 +6,9 @@ import React, {useEffect} from "react";
 import './Default.css';
 import {NewProject} from "../newproject/NewProject";
 import {useParams} from "react-router-dom";
-import {getPage} from "../page/pageSlice";
 import {setNewProjectValue} from "../newproject/newprojectSlice";
 import {selectProjects} from "../projects/projectsSlice";
+import ComponentError from "./СomponentError";
 
 export function ComponentEditProject() {
     const login = useAppSelector(selectLogin);
@@ -20,17 +20,21 @@ export function ComponentEditProject() {
         // fetch data
         if (typeof id === "string" && login.auth) {
             const current = projects.value.filter(p => p.id === Number(id))[0]
-            dispatch(setNewProjectValue(current))
+            if (current)
+                dispatch(setNewProjectValue(current))
             console.log(id)
         }
-    }, [id, login.auth]);
+    }, [id, login.auth, dispatch, projects.value]);
 
     if (!login.auth) {
         return <ComponentLogin/>
     }
-    if (login.access !== "admin") {
-        return <p>403</p>
-    }
+    if (login.access !== "admin")
+        return <ComponentError msg={'Доступ запрещен'}/>
+
+    if (projects.value.filter(p => p.id === Number(id)).length === 0)
+        return <ComponentError msg={'Проект не найден'}/>
+
     return (
         <div className="App">
             <Header/>
